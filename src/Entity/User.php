@@ -44,6 +44,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank]
     private ?string $lastname = null;
 
+    #[ORM\Column(options: ['default' => false])]
+    private ?bool $apiEnabled = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -72,8 +75,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @see UserInterface
      * @return list<string>
+     * @see UserInterface
      */
     public function getRoles(): array
     {
@@ -138,6 +141,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastname(string $lastname): static
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function isApiEnabled(): ?bool
+    {
+        return $this->apiEnabled;
+    }
+
+    public function setApiEnabled(bool $apiEnabled): static
+    {
+        $this->apiEnabled = $apiEnabled;
 
         return $this;
     }

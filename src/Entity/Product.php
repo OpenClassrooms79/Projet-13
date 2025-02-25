@@ -26,10 +26,10 @@ class Product
     #[ORM\Column(type: Types::TEXT)]
     private ?string $fullDescription = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?float $price = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
 
     public function getId(): ?int
@@ -90,7 +90,7 @@ class Product
         return $this->picture;
     }
 
-    public function setPicture(string $picture): static
+    public function setPicture(?string $picture): static
     {
         $this->picture = $picture;
 
