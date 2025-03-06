@@ -1,0 +1,57 @@
+[
+  {
+    "name": "Kit d'hygiène recyclable",
+    "shortDescription": "Pour une salle de bain éco-friendly",
+    "price": 24.99,
+    "picture": "p1.jpg"
+  },
+  {
+    "name": "Shot Tropical",
+    "shortDescription": "Fruits frais, pressés à froid",
+    "price": 4.50,
+    "picture": "p2.jpg"
+  },
+  {
+    "name": "Gourde en bois",
+    "shortDescription": "50cl, bois d’olivier",
+    "price": 16.90,
+    "picture": "p3.jpg"
+  },
+  {
+    "name": "Disques Démaquillants x3",
+    "shortDescription": "Solution efficace pour vous démaquiller en douceur ",
+    "price": 19.90,
+    "picture": "p4.jpg"
+  },
+  {
+    "name": "Bougie Lavande & Patchouli",
+    "shortDescription": "Cire naturelle",
+    "price": 32,
+    "picture": "p5.jpg"
+  },
+  {
+    "name": "Brosse à dents",
+    "shortDescription": "Bois de hêtre rouge issu de forêts gérées durablement",
+    "price": 5.40,
+    "picture": "p6.jpg"
+  },
+  {
+    "name": "Kit couvert en bois",
+    "shortDescription": "Revêtement Bio en olivier & sac de transport",
+    "price": 12.30,
+    "picture": "p7.jpg"
+  },
+  {
+    "name": "Nécessaire, déodorant Bio",
+    "shortDescription": "50ml déodorant à l’eucalyptus",
+    "fullDescription": "Déodorant Nécessaire, une formule révolutionnaire composée exclusivement d'ingrédients naturels pour une protection efficace et bienfaisante.\n\nChaque flacon de 50 ml renferme le secret d'une fraîcheur longue durée, sans compromettre votre bien-être ni l'environnement. Conçu avec soin, ce déodorant allie le pouvoir antibactérien des extraits de plantes aux vertus apaisantes des huiles essentielles, assurant une sensation de confort toute la journée. \n\nGrâce à sa formule non irritante et respectueuse de votre peau, Nécessaire offre une alternative saine aux déodorants conventionnels, tout en préservant l'équilibre naturel de votre corps.",
+    "price": 8.50,
+    "picture": "p8.jpg"
+  },
+  {
+    "name": "Savon Bio",
+    "shortDescription": "Thé, Orange & Girofle",
+    "price": 18.90,
+    "picture": "p9.jpg"
+  }
+]

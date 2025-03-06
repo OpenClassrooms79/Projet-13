@@ -223,6 +223,9 @@
             "./config/packages/validator.yaml"
         ]
     },
+    "twig/extra-bundle": {
+        "version": "v3.20.0"
+    },
     "zenstruck/foundry": {
         "version": "2.3",
         "recipe": {

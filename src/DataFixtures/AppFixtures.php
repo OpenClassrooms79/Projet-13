@@ -2,23 +2,31 @@
 
 namespace App\DataFixtures;
 
-use App\Factory\ProductFactory;
-use App\Factory\UserFactory;
+use App\Entity\Product;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use App\Repository\UserRepository;
+
+use function file_get_contents;
+use function json_decode;
 
 class AppFixtures extends Fixture
 {
-    public function __construct(
-        private UserRepository $userRepository,
-    ) {}
+    public function __construct() {}
 
     public function load(ObjectManager $manager): void
     {
-        UserFactory::new()->createMany(30);
-        ProductFactory::new()->createMany(100);
-
+        $data = json_decode(file_get_contents('./src/DataFixtures/data.json'), true);
+        foreach ($data as $productData) {
+            $product = new Product();
+            $product->setName($productData['name']);
+            $product->setShortDescription($productData['shortDescription']);
+            if (isset($productData['fullDescription'])) {
+                $product->setFullDescription($productData['fullDescription']);
+            }
+            $product->setPrice($productData['price']);
+            $product->setPicture($productData['picture']);
+            $manager->persist($product);
+        }
         $manager->flush();
     }
 }

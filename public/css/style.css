@@ -9,7 +9,7 @@
 
 :root {
     --logo-color: #497555;
-    --header-background: #FFFDF7;
+    --main-background: #FFFDF7;
     --header-text: #333333;
     --footer-background: white;
     --footer-text: var(--header-text);
@@ -22,6 +22,7 @@ BODY {
     /*width: 1440px;
     margin-left: auto;
     margin-right: auto;*/
+    background-color: var(--main-background);
 }
 
 .wrapper {
@@ -41,7 +42,7 @@ HEADER {
     padding-left: var(--real-header-padding);
     padding-right: var(--real-header-padding);
     height: 81px;
-    background-color: var(--header-background);
+    background-color: var(--main-background);
     color: var(--header-text);
     font-family: Inter, serif;
     font-size: 14px;
@@ -172,8 +173,6 @@ H1 {
     background-color: var(--conviction-background);
     display: flex;
     flex-direction: row;
-    /*justify-content: center;
-    align-items: center;*/
 }
 
 #conviction > DIV {
@@ -200,8 +199,6 @@ H1 {
     background-color: var(--values-background);
     display: flex;
     flex-direction: row;
-    /*justify-content: center;
-    align-items: center;*/
 }
 
 #values > DIV {
@@ -220,4 +217,33 @@ H1 {
     width: 465px;
     margin-right: 40px;
     margin-bottom: 40px;
+}
+
+.card {
+    overflow: hidden;
+    width: 100%;
+}
+
+.card-img {
+    height: 474px;
+    object-fit: cover;
+}
+
+.card-text {
+    height: 218px;
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+#products {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#products ARTICLE {
+    flex: 33%;
 }
