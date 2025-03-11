@@ -23,19 +23,7 @@ services:
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones
 
-  app.custom_authenticator:
-    class: App\Security\CustomAuthenticator
-    parent: lexik_jwt_authentication.security.jwt_authenticator
-
+  # permet d'exécuter du code après authentication réussie à l'API
   App\EventListener\ApiAuthenticationSuccessListener:
     tags:
       - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: onAuthenticationSuccess }
-
-  #App\EventListener\ApiAuthenticationSuccessListener:
-  #  tags:
-  #    - { name: kernel.event_listener, event: lexik_jwt_authentication.handler.authentication_success }
-
-  # ne sera appelé que pour les routes de l'API
-  #App\EventSubscriber\ExceptionSubscriber:
-  #  tags:
-  #    - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: 10, filter: '/api/*' }
