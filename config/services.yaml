@@ -24,6 +24,7 @@ services:
   # please note that last definitions always *replace* previous ones
 
   # permet d'exécuter du code après authentication réussie à l'API
-  App\EventListener\ApiAuthenticationSuccessListener:
+  App\EventListener\ApiListener:
     tags:
       - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: onAuthenticationSuccess }
+      - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_authenticated, method: onJwtAuthenticated }
