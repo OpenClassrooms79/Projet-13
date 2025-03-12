@@ -3,13 +3,25 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Symfony\Action\NotFoundAction;
+use App\Controller\ApiController;
 use App\Repository\ProductRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
-#[ApiResource]
+#[ApiResource(operations: [
+    new Get(
+        controller: NotFoundAction::class,
+    ),
+    new GetCollection(
+        uriTemplate: '/products',
+        controller: ApiController::class . '::products',
+    ),
+])]
 class Product
 {
     #[ORM\Id]
