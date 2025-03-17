@@ -10,16 +10,23 @@
     <header>
         <nav>
             <div class="left">
-                <div class="logo">
-                    <div class="logo-icon">G</div>
-                    <div>Green Goodies</div>
-                </div>
+                <a href="{{ path('app_main') }}">
+                    <div class="logo">
+                        <div class="logo-icon">G</div>
+                        <div>Green Goodies</div>
+                    </div>
+                </a>
             </div>
             <menu class="right">
-                <li>Nos produits</li>
-                <li>Mon panier</li>
-                <li>Mon compte</li>
-                <li>Déconnexion</li>
+                {% if app.user %}
+                    <li>Nos produits</li>
+                    <li>Mon panier</li>
+                    <li>Mon compte</li>
+                    <li><a href="{{ path('user_logout') }}">Déconnexion</a></li>
+                {% else %}
+                    <li><a href="{{ path('user_login') }}">Connexion</a></li>
+                    <li><a href="{{ path('user_register') }}">Inscription</a></li>
+                {% endif %}
             </menu>
         </nav>
     </header>

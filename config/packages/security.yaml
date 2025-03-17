@@ -25,6 +25,20 @@ security:
       # https://symfony.com/doc/current/security/impersonating_user.html
       # switch_user: true
 
+    main:
+      lazy: true
+      provider: app_user_provider
+      form_login:
+        login_path: user_login
+        check_path: user_login
+        default_target_path: app_main # URL de redirection automatique après login avec succès // TODO à modifier
+        username_parameter: login[email]
+        password_parameter: login[password]
+        enable_csrf: true
+      logout:
+        path: user_logout
+        target: app_main # URL de redirection automatique après logout
+
     login:
       pattern: ^/api/login
       stateless: true

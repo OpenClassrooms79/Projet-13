@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}S'inscrire à {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div>
+        <h1 class="register">Inscription</h1>
+        <h2>Tous les champs sont obligatoires.</h2>
+
+        {{ form_start(form) }}
+        {{ form_row(form.lastname) }}
+        {{ form_row(form.firstname) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.password) }}
+        {{ form_widget(form.cguAccepted) }} {{ field_label(form.cguAccepted) }}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <button type="submit" class="button dark-button">S'inscrire</button>
+        {{ form_end(form) }}
+
+        <a href="{{ path('user_login') }}" class="no-account-or-already-registered">Déjà un compte ? Se connecter</a>
+    </div>
+{% endblock %}

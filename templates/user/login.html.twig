@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'messages' %}
+
+{% block title %}Se connecter à {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div>
+        <h1 class="register">Connexion</h1>
+
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'messages', 'fr') }}</div>
+        {% endif %}
+
+        {{ form_start(form) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.password) }}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <button type="submit" class="button dark-button">Se connecter</button>
+        {{ form_end(form) }}
+
+        <a href="{{ path('user_register') }}" class="no-account-or-already-registered">Pas encore de compte ?
+            S'inscrire</a>
+    </div>
+{% endblock %}

@@ -43,7 +43,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $lastname = null;
 
     #[ORM\Column(options: ['default' => false])]
-    private ?bool $apiEnabled = null;
+    private ?bool $apiEnabled = false;
 
     public function getId(): ?int
     {
