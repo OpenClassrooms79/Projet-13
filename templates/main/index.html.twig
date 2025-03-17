@@ -24,12 +24,13 @@
     <section id="products">
         {% for product in products %}
             <article class="card">
-                <img class="card-img" src="images/products/{{ product.picture }}">
+                <img class="card-img" src="{{ asset('/images/produits/' ~ product.picture|url_encode) }}"
+                     alt="Image">
                 <div class="card-text">
                     <h3 class="card-title">{{ product.name|escape }}</h3>
                     <p class="card-description">{{ product.shortDescription|escape }}</p>
-                    <p class="card-price">{{ product.price|format_currency('EUR', {decimal_always_shown: false}) }}</p>
-                    <a href="#" class="card-link">Voir le produit</a>
+                    <p class="card-price">{{ product.getFormattedPrice() }}</p>
+                    <a href="{{ path('product_show', {'id': product.id}) }}" class="card-link">Voir le produit</a>
                 </div>
             </article>
         {% endfor %}

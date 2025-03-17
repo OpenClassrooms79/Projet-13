@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block body %}
+    <section id="product">
+        <div id="image">
+            <img src="{{ asset('/images/produits/' ~ product.picture|url_encode) }}" alt="Image">
+        </div>
+        <div id="text">
+            <h1>{{ product.name }}</h1>
+            {{ product.getFormattedPrice() }}<br>
+            Description
+            {{ product.fullDescription }}
+
+            <input type="submit" value="Ajouter au panier">
+        </div>
+    </section>
+{% endblock %}

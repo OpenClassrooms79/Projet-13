@@ -6,21 +6,20 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Symfony\Action\NotFoundAction;
-use App\Controller\ApiController;
 use App\Repository\ProductRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+
+use function floor;
+use function number_format;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[ApiResource(operations: [
     new Get(
         controller: NotFoundAction::class,
     ),
-    new GetCollection(
-        uriTemplate: '/products',
-        controller: ApiController::class . '::products',
-    ),
+    new GetCollection(),
 ])]
 class Product
 {
@@ -112,5 +111,10 @@ class Product
         $this->picture = $picture;
 
         return $this;
+    }
+
+    public function getFormattedPrice(): string
+    {
+        return ((floor($this->price) === $this->price) ? (int) $this->price : number_format($this->price, 2, ',', ' ')) . '€';
     }
 }

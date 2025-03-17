@@ -16,6 +16,10 @@
     --welcome-background: #E8F0E3;
     --conviction-background: #EBE3D3;
     --values-background: #E8F0E3;
+
+    --max-width: 1440px;
+    --horizontal-padding: 0px; /* valeur du padding gauche et droite de la page sur la maquette Figma (page de 1440px de large) */
+    --real-horizontal-padding: calc((100vw - var(--max-width)) / 2 + var(--horizontal-padding)); /* valeur du padding gauche et droite de la page pour un affichage pleine largeur */
 }
 
 BODY {
@@ -246,4 +250,24 @@ H1 {
 
 #products ARTICLE {
     flex: 33%;
+}
+
+#product {
+    display: flex;
+    flex-direction: row;
+}
+
+#product #image {
+    width: 734px;
+}
+
+#product #text {
+    width: 706px;
+    padding-top: 87px;
+    padding-right: 122px;
+    padding-left: 119px;
+}
+
+#product #image IMG {
+    max-width: 100%;
 }
