@@ -112,9 +112,4 @@ class Product
 
         return $this;
     }
-
-    public function getFormattedPrice(): string
-    {
-        return ((floor($this->price) === $this->price) ? (int) $this->price : number_format($this->price, 2, ',', ' ')) . '€';
-    }
 }

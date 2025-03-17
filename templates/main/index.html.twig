@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% import "macros.html.twig" as macros %}
 
 {% block title %}Bienvenue chez Green Goodies{% endblock %}
 
@@ -29,7 +30,7 @@
                 <div class="card-text">
                     <h3 class="card-title">{{ product.name|escape }}</h3>
                     <p class="card-description">{{ product.shortDescription|escape }}</p>
-                    <p class="card-price">{{ product.getFormattedPrice() }}</p>
+                    <p class="card-price">{{ macros.formatPrice(product.price) }}</p>
                     <a href="{{ path('product_show', {'id': product.id}) }}" class="card-link">Voir le produit</a>
                 </div>
             </article>

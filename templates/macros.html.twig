@@ -1,0 +1,3 @@
+{% macro formatPrice(price) %}
+    {{- price|format_number({min_fraction_digit: 2, max_fraction_digit: 2}, locale='fr')|replace({',00':''}) ~ '€' -}}
+{% endmacro %}
