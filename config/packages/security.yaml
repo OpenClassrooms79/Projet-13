@@ -15,16 +15,31 @@ security:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
-      #    main:
-      #      lazy: true
-      #      provider: app_user_provider
 
-      # activate different ways to authenticate
-      # https://symfony.com/doc/current/security.html#the-firewall
+    # activate different ways to authenticate
+    # https://symfony.com/doc/current/security.html#the-firewall
 
-      # https://symfony.com/doc/current/security/impersonating_user.html
-      # switch_user: true
+    # https://symfony.com/doc/current/security/impersonating_user.html
+    # switch_user: true
 
+    # /!\ Only one firewall is active on each request: Symfony uses the pattern key to find the first match
+
+    # identification à l'API
+    login:
+      pattern: ^/api/login
+      stateless: true
+      json_login:
+        check_path: /api/login
+        success_handler: lexik_jwt_authentication.handler.authentication_success
+        failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
+    # autres routes de l'API
+    api:
+      pattern: ^/api
+      stateless: true
+      jwt: ~
+
+    # routes non-API (site web)
     main:
       lazy: true
       provider: app_user_provider
@@ -38,19 +53,6 @@ security:
       logout:
         path: user_logout
         target: app_main # URL de redirection automatique après logout
-
-    login:
-      pattern: ^/api/login
-      stateless: true
-      json_login:
-        check_path: /api/login
-        success_handler: lexik_jwt_authentication.handler.authentication_success
-        failure_handler: lexik_jwt_authentication.handler.authentication_failure
-
-    api:
-      pattern: ^/api
-      stateless: true
-      jwt: ~
 
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used

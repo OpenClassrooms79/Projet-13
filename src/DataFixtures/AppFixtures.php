@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Product;
+use App\Factory\ProductFactory;
 use App\Factory\UserFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -25,7 +26,7 @@ class AppFixtures extends Fixture
 
     public function loadProducts(ObjectManager $manager): void
     {
-        $data = json_decode(file_get_contents('./src/DataFixtures/data.json'), true, 512, JSON_THROW_ON_ERROR);
+        $data = json_decode(file_get_contents(__DIR__ . '/data.json'), true, 512, JSON_THROW_ON_ERROR);
         $faker = Faker\Factory::create();
 
         foreach ($data as $productData) {
@@ -41,6 +42,9 @@ class AppFixtures extends Fixture
             $product->setPicture($productData['picture']);
             $manager->persist($product);
         }
+
+        // ajout de produits aléatoires
+        ProductFactory::createMany(20);
     }
 
     public function loadUsers(ObjectManager $manager): void
