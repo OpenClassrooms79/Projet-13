@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ApiAccessType;
+use App\Form\DeleteAccountType;
 use App\Form\LoginType;
 use App\Form\RegisterType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -25,9 +28,7 @@ final class UserController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
         if ($this->security->isGranted('IS_AUTHENTICATED_FULLY')) {
-            // User is already logged in
-            // TODO définir la route de redirection
-            return $this->redirectToRoute('app_main');
+            return $this->redirectToRoute('user_account');
         }
 
         $user = new User();
@@ -67,8 +68,7 @@ final class UserController extends AbstractController
     {
         // si on vient sur la page de connexion et que l'utilisateur est deja identifié
         if ($this->security->isGranted('IS_AUTHENTICATED_FULLY')) {
-            // TODO définir la route de redirection
-            return $this->redirectToRoute('app_main');
+            return $this->redirectToRoute('user_account');
         }
 
         // dernière adresse e-mail saisie dans le formulaire
@@ -92,5 +92,48 @@ final class UserController extends AbstractController
     public function logout(): void
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
+
+    #[Route(path: '/compte', name: 'user_account')]
+    public function account(Request $request, Security $security): Response
+    {
+        /** @var User $user */
+        $user = $security->getUser();
+
+        $apiForm = $this->createForm(ApiAccessType::class);
+        $deleteForm = $this->createForm(DeleteAccountType::class);
+
+        // activation ou désactivation de l'accès à l'API
+        $apiForm->handleRequest($request);
+        if ($apiForm->isSubmitted() && $apiForm->isValid()) {
+            $user->setApiEnabled(!$user->isApiEnabled());
+
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('user_account');
+        }
+
+        // suppression du compte
+        $deleteForm->handleRequest($request);
+        if ($deleteForm->isSubmitted() && $deleteForm->isValid()) {
+            $this->entityManager->remove($user);
+            $this->entityManager->flush();
+
+            // suppresion de la session
+            $this->security->logout();
+            return $this->redirectToRoute('app_main');
+        }
+
+        return $this->render('user/account.html.twig', [
+            'apiForm' => $apiForm,
+            'deleteForm' => $deleteForm,
+        ]);
+    }
+
+    #[Route(path: '/panier', name: 'user_cart')]
+    public function cart(Request $request): Response
+    {
+        return $this->render('user/cart.html.twig');
     }
 }

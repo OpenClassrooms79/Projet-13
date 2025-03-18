@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}Green Goodies{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
@@ -19,9 +19,9 @@
             </div>
             <menu class="right">
                 {% if app.user %}
-                    <li>Nos produits</li>
-                    <li>Mon panier</li>
-                    <li>Mon compte</li>
+                    <li><a href="{{ path('app_main') }}">Nos produits</a></li>
+                    <li><a href="{{ path('user_cart') }}">Mon panier</a></li>
+                    <li><a href="{{ path('user_account') }}">Mon compte</a></li>
                     <li><a href="{{ path('user_logout') }}">Déconnexion</a></li>
                 {% else %}
                     <li><a href="{{ path('user_login') }}">Connexion</a></li>

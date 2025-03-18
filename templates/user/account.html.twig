@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'messages' %}
+
+{% block title %}Mon compte - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>Mon compte</h1>
+    <div>
+        Mes commandes
+    </div>
+    <div>
+        Mon accès API
+        {{ form_start(apiForm) }}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        {{ form_row(apiForm.apiAccess) }}
+        {{ form_end(apiForm) }}
+    </div>
+
+    <div>
+        {{ form_start(deleteForm) }}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        {{ form_row(deleteForm.deleteAccount) }}
+        {{ form_end(deleteForm) }}
+    </div>
+{% endblock %}
