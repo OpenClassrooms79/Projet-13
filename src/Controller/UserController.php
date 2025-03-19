@@ -130,6 +130,7 @@ final class UserController extends AbstractController
         return $this->render('user/account.html.twig', [
             'apiForm' => $apiForm,
             'deleteForm' => $deleteForm,
+            'orders' => $user->getOrders(),
         ]);
     }
 

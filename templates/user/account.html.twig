@@ -8,6 +8,11 @@
     <h1>Mon compte</h1>
     <div>
         Mes commandes
+        {% for order in orders %}
+            <p>{{ order.num }} - {{ order.orderDate|format_date(locale: 'fr', pattern: 'dd/MM/yyyy') }}
+                - {{ order.total }}€</p>
+        {% endfor %}
+
     </div>
     <div>
         Mon accès API
