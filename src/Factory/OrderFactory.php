@@ -5,7 +5,6 @@ namespace App\Factory;
 use App\Entity\Order;
 use App\Repository\OrderRepository;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
@@ -21,7 +20,9 @@ final class OrderFactory extends PersistentProxyObjectFactory
     public function __construct(
         private readonly OrderRepository $orderRepository,
         private readonly UserRepository $userRepository,
-    ) {}
+    ) {
+        parent::__construct();
+    }
 
     public static function class(): string
     {

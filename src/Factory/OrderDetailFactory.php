@@ -20,7 +20,9 @@ final class OrderDetailFactory extends PersistentProxyObjectFactory
     public function __construct(
         private readonly OrderRepository $orderRepository,
         private readonly ProductRepository $productRepository,
-    ) {}
+    ) {
+        parent::__construct();
+    }
 
     public static function class(): string
     {

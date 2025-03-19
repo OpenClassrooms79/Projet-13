@@ -11,9 +11,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-use function floor;
-use function number_format;
-
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[ApiResource(operations: [
     new Get(

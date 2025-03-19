@@ -156,7 +156,6 @@ final class UserController extends AbstractController
 
         $cart = $cartService->getCart();
         $cartData = [];
-        $total = 0;
 
         foreach ($cart as $productId => $quantity) {
             $product = $productRepository->find($productId);

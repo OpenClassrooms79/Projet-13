@@ -3,8 +3,6 @@
 namespace App\DataFixtures;
 
 use App\Entity\Order;
-use App\Entity\OrderDetail;
-use App\Entity\Product;
 use App\Factory\OrderDetailFactory;
 use App\Factory\OrderFactory;
 use App\Factory\ProductFactory;
@@ -24,15 +22,15 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $this->loadProducts($manager);
-        $this->loadUsers($manager);
-        $this->loadOrders($manager);
-        $this->loadOrderDetails($manager);
+        $this->loadProducts();
+        $this->loadUsers();
+        $this->loadOrders();
+        $this->loadOrderDetails();
         $this->updateOrdersTotal($manager);
         $manager->flush();
     }
 
-    public function loadProducts(ObjectManager $manager): void
+    public function loadProducts(): void
     {
         $data = json_decode(file_get_contents(__DIR__ . '/data.json'), true, 512, JSON_THROW_ON_ERROR);
         $faker = Faker\Factory::create();
@@ -51,19 +49,19 @@ class AppFixtures extends Fixture
         ProductFactory::createMany(20);
     }
 
-    public function loadUsers(ObjectManager $manager): void
+    public function loadUsers(): void
     {
         UserFactory::createMany(20);
         //UserFactory::createMany(2);
     }
 
-    public function loadOrders(ObjectManager $manager): void
+    public function loadOrders(): void
     {
         OrderFactory::createMany(100);
         //OrderFactory::createMany(3);
     }
 
-    public function loadOrderDetails(ObjectManager $manager): void
+    public function loadOrderDetails(): void
     {
         OrderDetailFactory::new()->createMany(1000);
         //OrderDetailFactory::createMany(10);
