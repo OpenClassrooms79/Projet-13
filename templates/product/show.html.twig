@@ -14,7 +14,10 @@
             Description
             {{ product.fullDescription }}
 
-            <input type="submit" value="Ajouter au panier">
+            {{ form_start(form) }}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            {{ form_row(form.addToCart) }}
+            {{ form_end(form) }}
         </div>
     </section>
 {% endblock %}

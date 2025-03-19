@@ -2,31 +2,34 @@
 
 namespace App\Controller;
 
+use App\Form\AddToCartType;
 use App\Repository\ProductRepository;
+use App\Service\CartService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final class MainController extends AbstractController
 {
     public const ERROR_TITLE = 'Produit inexistant';
     public const ERROR_SHOW = "Impossible d'afficher le produit n°%d car il n'existe pas.";
 
+    public function __construct(private readonly ProductRepository $productRepository) {}
+
     #[Route('/', name: 'app_main')]
-    public function index(ProductRepository $productRepository): Response
+    public function index(): Response
     {
-        //dd($productRepository->findAll());
         return $this->render('main/index.html.twig', [
-            'products' => $productRepository->findAll(),
+            'products' => $this->productRepository->findAll(),
         ]);
     }
 
     #[Route('/produit/{id}', name: 'product_show', requirements: ['id' => Requirement::POSITIVE_INT])]
-    public function show(int $id, ProductRepository $productRepository): Response
+    public function show(int $id, Request $request, CartService $cartService): Response
     {
-        $product = $productRepository->find($id);
+        $product = $this->productRepository->find($id);
         if ($product === null) {
             return $this->forward('App\Controller\ErrorController::index', [
                 'title' => self::ERROR_TITLE,
@@ -35,9 +38,18 @@ final class MainController extends AbstractController
             ]);
         }
 
+        $form = $this->createForm(AddToCartType::class);
+
+        // suppression du compte
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // TODO ajout au panier à gérer
+            $cartService->add($id);
+        }
+
         return $this->render('product/show.html.twig', [
             'product' => $product,
+            'form' => $form,
         ]);
     }
-
 }
