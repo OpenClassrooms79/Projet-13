@@ -112,4 +112,16 @@ class Product
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return print_r([
+            'id' => $this->id,
+            'name' => $this->name,
+            'price' => $this->price,
+            'shortDescription' => $this->shortDescription,
+            'fullDescription' => $this->fullDescription,
+            'picture' => $this->picture,
+        ], true);
+    }
 }

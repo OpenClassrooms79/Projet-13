@@ -2,9 +2,14 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Order;
+use App\Entity\OrderDetail;
 use App\Entity\Product;
+use App\Factory\OrderDetailFactory;
+use App\Factory\OrderFactory;
 use App\Factory\ProductFactory;
 use App\Factory\UserFactory;
+use App\Repository\OrderRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
@@ -15,12 +20,14 @@ use function random_int;
 
 class AppFixtures extends Fixture
 {
-    public function __construct() {}
+    public function __construct(private OrderRepository $orderRepository) {}
 
     public function load(ObjectManager $manager): void
     {
         $this->loadProducts($manager);
         $this->loadUsers($manager);
+        $this->loadOrders($manager);
+        $this->loadOrderDetails($manager);
         $manager->flush();
     }
 
@@ -30,17 +37,13 @@ class AppFixtures extends Fixture
         $faker = Faker\Factory::create();
 
         foreach ($data as $productData) {
-            $product = new Product();
-            $product->setName($productData['name']);
-            $product->setShortDescription($productData['shortDescription']);
-            if (isset($productData['fullDescription'])) {
-                $product->setFullDescription($productData['fullDescription']);
-            } else {
-                $product->setFullDescription($faker->text(random_int(500, 1000)));
-            }
-            $product->setPrice($productData['price']);
-            $product->setPicture($productData['picture']);
-            $manager->persist($product);
+            ProductFactory::createOne([
+                'name' => $productData['name'],
+                'shortDescription' => $productData['shortDescription'],
+                'fullDescription' => $productData['fullDescription'] ?? $faker->text(random_int(500, 1000)),
+                'price' => $productData['price'],
+                'picture' => $productData['picture'],
+            ]);
         }
 
         // ajout de produits aléatoires
@@ -50,5 +53,29 @@ class AppFixtures extends Fixture
     public function loadUsers(ObjectManager $manager): void
     {
         UserFactory::createMany(20);
+        //UserFactory::createMany(2);
+    }
+
+    public function loadOrders(ObjectManager $manager): void
+    {
+        OrderFactory::createMany(100);
+        //OrderFactory::createMany(3);
+    }
+
+    public function loadOrderDetails(ObjectManager $manager): void
+    {
+        OrderDetailFactory::new()->createMany(1000);
+        //OrderDetailFactory::createMany(10);
+    }
+
+    public function updateTotals(ObjectManager $manager): void
+    {
+        /*UPDATE `order` o
+INNER JOIN (SELECT o.id, o.user_id, o.order_date, SUM(od.quantity * p.price) AS total
+FROM `order` o
+INNER JOIN order_detail od ON o.id = od.order_id
+INNER JOIN product p ON od.product_id = p.id
+GROUP BY o.id, o.user_id, o.order_date) tmp ON o.id = tmp.id
+SET o.total = tmp.total*/
     }
 }

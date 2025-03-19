@@ -3,12 +3,8 @@
 namespace App\Factory;
 
 use App\Entity\User;
-use App\Repository\UserRepository;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
-use Zenstruck\Foundry\Persistence\Proxy;
-use Zenstruck\Foundry\Persistence\ProxyRepositoryDecorator;
 
 /**
  * @extends PersistentProxyObjectFactory<User>
@@ -35,7 +31,7 @@ final class UserFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'email' => self::faker()->email(30),
+            'email' => self::faker()->email(),
             'firstname' => self::faker()->firstName(255),
             'lastname' => self::faker()->lastName(255),
             'password' => self::PASSWORD, // mot de passe non chiffré ici
