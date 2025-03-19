@@ -28,6 +28,7 @@ class AppFixtures extends Fixture
         $this->loadUsers($manager);
         $this->loadOrders($manager);
         $this->loadOrderDetails($manager);
+        $this->updateOrdersTotal($manager);
         $manager->flush();
     }
 
@@ -68,14 +69,23 @@ class AppFixtures extends Fixture
         //OrderDetailFactory::createMany(10);
     }
 
-    public function updateTotals(ObjectManager $manager): void
+    private function updateOrdersTotal(ObjectManager $manager): void
     {
-        /*UPDATE `order` o
-INNER JOIN (SELECT o.id, o.user_id, o.order_date, SUM(od.quantity * p.price) AS total
-FROM `order` o
-INNER JOIN order_detail od ON o.id = od.order_id
-INNER JOIN product p ON od.product_id = p.id
-GROUP BY o.id, o.user_id, o.order_date) tmp ON o.id = tmp.id
-SET o.total = tmp.total*/
+        /** @var Order[] $orders */
+        $orders = $this->orderRepository->findAll();
+
+        foreach ($orders as $order) {
+            $total = 0;
+
+            foreach ($order->getOrderDetails() as $orderDetail) {
+                $product = $orderDetail->getProduct();
+                if ($product !== null) {
+                    $total += $product->getPrice() * $orderDetail->getQuantity();
+                }
+            }
+
+            $order->setTotal($total);
+            $manager->persist($order);
+        }
     }
 }

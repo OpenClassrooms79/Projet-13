@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ApiAccessType;
+use App\Form\ConfirmOrderType;
 use App\Form\DeleteAccountType;
 use App\Form\LoginType;
 use App\Form\RegisterType;
-use App\Repository\UserRepository;
+use App\Repository\ProductRepository;
+use App\Service\CartService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -132,8 +134,47 @@ final class UserController extends AbstractController
     }
 
     #[Route(path: '/panier', name: 'user_cart')]
-    public function cart(Request $request): Response
+    public function cart(Request $request, CartService $cartService, ProductRepository $productRepository): Response
     {
-        return $this->render('user/cart.html.twig');
+        foreach ($cartService->getCart() as $id => $quantity) {
+            $product = $productRepository->find($id);
+            if ($product !== null) {
+            }
+        }
+
+        $form = $this->createForm(ConfirmOrderType::class);
+
+        // activation ou désactivation de l'accès à l'API
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            //$this->entityManager->persist($user);
+            //$this->entityManager->flush();
+
+            return $this->redirectToRoute('user_account');
+        }
+
+        $cart = $cartService->getCart();
+        $cartData = [];
+        $total = 0;
+
+        foreach ($cart as $productId => $quantity) {
+            $product = $productRepository->find($productId);
+            if ($product === null) {
+                continue; // au cas où un produit a été supprimé
+            }
+
+            $cartData[] = [
+                'product' => $product,
+                'quantity' => $quantity,
+                'subtotal' => $product->getPrice() * $quantity,
+            ];
+            //$total += $product->getPrice() * $quantity;
+        }
+
+        return $this->render('user/cart.html.twig', [
+            'form' => $form,
+            /*'cart' => $cartService->getCart(),*/
+            'cartData' => $cartData,
+        ]);
     }
 }

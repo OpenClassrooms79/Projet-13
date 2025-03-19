@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'messages' %}
+
+{% block title %}Mon panier - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>Mon panier</h1>
+
+    <button>x Vider le panier</button>
+    <div>
+        {% for data in cartData %}
+            <div>
+                {{ data.product.name }} - {{ data.product.price }} - {{ data.quantity }}
+            </div>
+        {% endfor %}
+
+        {{ form_start(form) }}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        {{ form_row(form.confirmOrder) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
