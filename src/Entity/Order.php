@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+use function number_format;
+
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
 #[ORM\Table(name: '`order`')]
 class Order
@@ -107,6 +109,7 @@ class Order
         if (!$this->orderDetails->contains($orderDetail)) {
             $this->orderDetails->add($orderDetail);
             $orderDetail->setOrder($this);
+            $this->recalculateTotal();
         }
 
         return $this;
@@ -119,9 +122,22 @@ class Order
             if ($orderDetail->getOrder() === $this) {
                 $orderDetail->setOrder(null);
             }
+            $this->recalculateTotal();
         }
 
         return $this;
+    }
+
+    public function recalculateTotal(): void
+    {
+        $total = 0;
+        foreach ($this->orderDetails as $orderDetail) {
+            $product = $orderDetail->getProduct();
+            if ($product) {
+                $total += $orderDetail->getQuantity() * $product->getPrice();
+            }
+        }
+        $this->setTotal($total);
     }
 
     public function __toString(): string

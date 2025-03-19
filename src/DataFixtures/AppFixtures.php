@@ -75,16 +75,7 @@ class AppFixtures extends Fixture
         $orders = $this->orderRepository->findAll();
 
         foreach ($orders as $order) {
-            $total = 0;
-
-            foreach ($order->getOrderDetails() as $orderDetail) {
-                $product = $orderDetail->getProduct();
-                if ($product !== null) {
-                    $total += $product->getPrice() * $orderDetail->getQuantity();
-                }
-            }
-
-            $order->setTotal($total);
+            $order->recalculateTotal();
             $manager->persist($order);
         }
     }
