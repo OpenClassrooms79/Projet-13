@@ -35,6 +35,10 @@ BODY {
     background-color: var(--main-background);
 }
 
+BODY.private {
+    background-color: var(--account-background);
+}
+
 .wrapper {
     padding-left: var(--real-horizontal-padding) px;
     padding-right: var(--real-horizontal-padding) px;
@@ -68,6 +72,15 @@ HEADER NAV {
     align-items: center;
     margin-left: 101px;
     margin-right: 96px;
+}
+
+HEADER MENU LI A {
+    color: var(--header-text);
+    font-family: Inter, serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    text-decoration: none;
 }
 
 .logo {

@@ -28,6 +28,9 @@ class ApiAccessType extends AbstractType
         $builder
             ->add('apiAccess', SubmitType::class, [
                 'label' => $label,
+                'attr' => [
+                    'class' => 'submit-button',
+                ],
             ]);
     }
 

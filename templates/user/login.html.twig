@@ -15,8 +15,8 @@
         {{ form_start(form) }}
         {{ form_row(form.email) }}
         {{ form_row(form.password) }}
+        {{ form_row(form.loginSubmit) }}
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        <button type="submit" class="button dark-button">Se connecter</button>
         {{ form_end(form) }}
 
         <a href="{{ path('user_register') }}" class="no-account-or-already-registered">Pas encore de compte ?

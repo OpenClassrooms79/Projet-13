@@ -5,7 +5,7 @@
     <title>{% block title %}Green Goodies{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
-<body>
+<body {% block body_class %}{% endblock %}>
 <div class="wrapper">
     <header>
         <nav>

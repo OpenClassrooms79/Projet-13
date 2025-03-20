@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
@@ -50,6 +51,12 @@ class LoginType extends AbstractType
                         'allowNull' => false,
                         'message' => 'Le mot de passe est requis.',
                     ]),
+                ],
+            ])
+            ->add('loginSubmit', SubmitType::class, [
+                'label' => 'Se connecter',
+                'attr' => [
+                    'class' => 'submit-button',
                 ],
             ]);
     }

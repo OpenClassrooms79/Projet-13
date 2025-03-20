@@ -13,8 +13,8 @@
         {{ form_row(form.email) }}
         {{ form_row(form.password) }}
         {{ form_widget(form.cguAccepted) }} {{ field_label(form.cguAccepted) }}
+        {{ form_row(form.registerSubmit) }}
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        <button type="submit" class="button dark-button">S'inscrire</button>
         {{ form_end(form) }}
 
         <a href="{{ path('user_login') }}" class="no-account-or-already-registered">Déjà un compte ? Se connecter</a>

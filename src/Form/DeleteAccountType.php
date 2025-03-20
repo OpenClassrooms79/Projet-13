@@ -14,6 +14,9 @@ class DeleteAccountType extends AbstractType
         $builder
             ->add('deleteAccount', SubmitType::class, [
                 'label' => 'Supprimer mon compte',
+                'attr' => [
+                    'class' => 'submit-button',
+                ],
             ]);
     }
 
