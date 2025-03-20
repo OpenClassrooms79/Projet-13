@@ -17,15 +17,15 @@
     <div>
         Mon accès API
         {{ form_start(apiForm) }}
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         {{ form_row(apiForm.apiAccess) }}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         {{ form_end(apiForm) }}
     </div>
 
     <div>
         {{ form_start(deleteForm) }}
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         {{ form_row(deleteForm.deleteAccount) }}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         {{ form_end(deleteForm) }}
     </div>
 {% endblock %}
