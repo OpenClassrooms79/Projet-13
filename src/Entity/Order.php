@@ -8,6 +8,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+
+use function bin2hex;
+use function random_bytes;
+use function strtoupper;
+
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
 #[ORM\Table(name: '`order`')]
 class Order
@@ -17,7 +24,7 @@ class Order
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $num = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -39,6 +46,7 @@ class Order
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
+        $this->num = 'CMD-' . strtoupper(bin2hex(random_bytes(5)));
     }
 
     public function getId(): ?int
@@ -136,6 +144,13 @@ class Order
             }
         }
         $this->setTotal($total);
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    {
+        $metadata->addConstraint(new UniqueEntity([
+            'fields' => 'num',
+        ]));
     }
 
     public function __toString(): string

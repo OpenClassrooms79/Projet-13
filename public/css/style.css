@@ -17,6 +17,11 @@
     --conviction-background: #EBE3D3;
     --values-background: #E8F0E3;
     --account-background: #F7F1EC;
+    --submit-button-background: #565656;
+    --submit-button-text: white;
+    --price-text: #333333;
+    --quantity-text: #666666;
+    --delivery-text: #666666;
 
     --max-width: 1440px;
     --horizontal-padding: 0px; /* valeur du padding gauche et droite de la page sur la maquette Figma (page de 1440px de large) */
@@ -271,4 +276,168 @@ H1 {
 
 #product #image IMG {
     max-width: 100%;
+}
+
+#products-title {
+    height: 91px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 100px;
+}
+
+H3 {
+    color: var(--header-text);
+    font-family: Inter, serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 100%;
+    text-transform: uppercase;
+}
+
+.submit-button {
+    width: 479px;
+    height: 77px;
+    background-color: var(--submit-button-background);
+    color: var(--submit-button-text);
+    font-family: Inter, serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    text-align: center;
+}
+
+#cart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 146px;
+}
+
+#cart H1 {
+    font-family: Inter, serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 100%;
+    color: var(--header-text);
+    margin-top: 102px;
+    margin-bottom: 16px;
+}
+
+#cart #buttons {
+    width: 604px;
+}
+
+#cart .empty-button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    color: #666666;
+    font: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: Inter, serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    margin-bottom: 17px;
+}
+
+#cart .empty-button:focus {
+    outline: none; /* retire le contour au focus */
+}
+
+#cart #products {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#cart .product {
+    width: 604px;
+    height: 220px;
+    border: 1px green solid;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 55px;
+    margin-bottom: 5px;
+}
+
+#cart .product .img-block {
+    margin-left: 43px;
+}
+
+#cart .product .img-block IMG {
+    width: 142px;
+    height: 132px;
+}
+
+#cart .product .text-block {
+
+}
+
+#cart .name {
+    color: black;
+    font-family: Inter, serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 100%;
+    margin-bottom: 6px;
+}
+
+#cart .quantity {
+    color: var(--quantity-text);
+    font-family: Inter, serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    margin-bottom: 13px;
+}
+
+#cart .price {
+    color: var(--price-text);
+    font-family: Inter, serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 100%;
+}
+
+#cart #total {
+    width: 604px;
+    height: 81px;
+    background-color: rgba(255, 253, 247, 0.7);
+    border: 1px red solid;
+    margin-bottom: 29px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    padding-right: 38px;
+    gap: 3px;
+}
+
+#cart .cart-total {
+    color: var(--price-text);
+    font-family: Inter, serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 100%;
+}
+
+#cart .cart-total-price {
+    color: var(--price-text);
+    font-family: Inter, serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 100%;
+}
+
+#cart .delivery-text {
+    color: var(--delivery-text);
+    font-family: Inter, serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 100%;
 }

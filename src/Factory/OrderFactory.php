@@ -37,7 +37,6 @@ final class OrderFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'num' => $this->orderRepository->generateOrderNumber(),
             'orderDate' => self::faker()->dateTime(),
             'total' => 0,
             'user' => $this->userRepository->findRandom(),

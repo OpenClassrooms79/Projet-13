@@ -16,15 +16,6 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
-    public function generateOrderNumber(): string
-    {
-        do {
-            $orderNumber = 'CMD-' . strtoupper(bin2hex(random_bytes(5)));
-        } while ($this->findOneBy(['num' => $orderNumber]));
-
-        return $orderNumber;
-    }
-
     public function findRandom(): ?Order
     {
         return $this

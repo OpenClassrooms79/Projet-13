@@ -2,14 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Order;
+use App\Entity\OrderDetail;
 use App\Entity\User;
 use App\Form\ApiAccessType;
 use App\Form\ConfirmOrderType;
 use App\Form\DeleteAccountType;
+use App\Form\EmptyCartType;
 use App\Form\LoginType;
 use App\Form\RegisterType;
 use App\Repository\ProductRepository;
 use App\Service\CartService;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -143,38 +147,64 @@ final class UserController extends AbstractController
             }
         }
 
-        $form = $this->createForm(ConfirmOrderType::class);
+        $empty_cart_form = $this->createForm(EmptyCartType::class);
+        $confirm_order_form = $this->createForm(ConfirmOrderType::class);
 
-        // activation ou désactivation de l'accès à l'API
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            //$this->entityManager->persist($user);
-            //$this->entityManager->flush();
+        // vider le panier
+        $empty_cart_form->handleRequest($request);
+        if ($empty_cart_form->isSubmitted() && $empty_cart_form->isValid()) {
+            $cartService->clear();
+            return $this->redirectToRoute('user_cart');
+        }
 
+        // validation de la commande
+        $confirm_order_form->handleRequest($request);
+        if ($confirm_order_form->isSubmitted() && $confirm_order_form->isValid()) {
+            // TODO transformer le contenu du panier en nouvelle commande
+            $cart = $cartService->getCart();
+            $order = new Order();
+            $order->setUser($this->security->getUser());
+            foreach ($cart as $productId => $quantity) {
+                $product = $productRepository->find($productId);
+                if ($product === null) {
+                    continue; // au cas où un produit a été supprimé de la base de données
+                }
+                $orderDetail = new OrderDetail();
+                $orderDetail->setProduct($product);
+                $orderDetail->setQuantity($quantity);
+                $order->addOrderDetail($orderDetail);
+            }
+            $order->recalculateTotal();
+            $order->setOrderDate(new DateTime('now'));
+            $this->entityManager->persist($order);
+            $this->entityManager->flush();
+            $cartService->clear(); // vider le panier une fois la commande a été créée
             return $this->redirectToRoute('user_account');
         }
 
         $cart = $cartService->getCart();
         $cartData = [];
-
+        $total = 0;
         foreach ($cart as $productId => $quantity) {
             $product = $productRepository->find($productId);
             if ($product === null) {
-                continue; // au cas où un produit a été supprimé
+                continue; // au cas où un produit a été supprimé de la base de données
             }
 
+            $subtotal = $product->getPrice() * $quantity;
             $cartData[] = [
                 'product' => $product,
                 'quantity' => $quantity,
-                'subtotal' => $product->getPrice() * $quantity,
+                'subtotal' => $subtotal,
             ];
-            //$total += $product->getPrice() * $quantity;
+            $total += $subtotal;
         }
 
         return $this->render('user/cart.html.twig', [
-            'form' => $form,
-            /*'cart' => $cartService->getCart(),*/
+            'empty_cart_form' => $empty_cart_form,
+            'confirm_order_form' => $confirm_order_form,
             'cartData' => $cartData,
+            'total' => $total,
         ]);
     }
 }

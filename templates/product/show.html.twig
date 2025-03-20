@@ -15,8 +15,8 @@
             {{ product.fullDescription }}
 
             {{ form_start(form) }}
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             {{ form_row(form.addToCart) }}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             {{ form_end(form) }}
         </div>
     </section>
