@@ -15,20 +15,20 @@ symfony console cache:warmup
 
 Créer un fichier `.env.local` et renseigner les variables suivantes:
 
-```
+```bash
 APP_SECRET
 DATABASE_URL
 ```
 
 ## 3️⃣ Créer des clés de chiffrement pour JWT
 
-```
+```bash
 symfony console lexik:jwt:generate-keypair
 ```
 
 ## 4️⃣ Compilation des assets
 
-```
+```bash
 symfony console asset-map:compile --no-debug
 ```
 
@@ -36,3 +36,4 @@ symfony console asset-map:compile --no-debug
 
 ```bash
 symfony server:start
+```
