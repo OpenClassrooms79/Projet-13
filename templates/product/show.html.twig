@@ -6,7 +6,9 @@
 {% block body %}
     <section id="product">
         <div id="image">
-            <img src="{{ asset('/images/produits/' ~ product.picture|url_encode) }}" alt="Image">
+            <img class="card-img"
+                 src="{{ asset(product.picture ? '/images/produits/' ~ product.picture|url_encode : '/images/produits/placeholder.png') }}"
+                 alt="{{ product.name|escape }}">
         </div>
         <div id="text">
             <div>

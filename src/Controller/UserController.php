@@ -140,12 +140,6 @@ final class UserController extends AbstractController
     #[Route(path: '/panier', name: 'user_cart')]
     public function cart(Request $request, CartService $cartService, ProductRepository $productRepository): Response
     {
-        foreach ($cartService->getCart() as $id => $quantity) {
-            $product = $productRepository->find($id);
-            if ($product !== null) {
-            }
-        }
-
         $empty_cart_form = $this->createForm(EmptyCartType::class);
         $confirm_order_form = $this->createForm(ConfirmOrderType::class);
 

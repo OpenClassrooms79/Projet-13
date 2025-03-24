@@ -15,11 +15,19 @@
             {{ form_end(empty_cart_form) }}
         </div>
 
+        {% set placeholders = ['images/produits/placeholder.png', 'images/produits/placeholder2.png'] %}
+        {% set idx = 0 %}
         <div id="products">
             {% for data in cartData %}
+                {% if data.product.picture %}
+                    {% set image_path = '/images/produits/' ~ data.product.picture|url_encode %}
+                {% else %}
+                    {% set image_path = placeholders[idx % placeholders|length] %}
+                    {% set idx = idx + 1 %}
+                {% endif %}
                 <div class="product">
                     <div class="img-block">
-                        <img src="{{ asset('images/produits/' ~ data.product.picture|url_encode) }}" alt="Image">
+                        <img src="{{ asset(image_path) }}" alt="{{ data.product.name|escape }}">
                     </div>
                     <div class="text-block">
                         <div class="name">{{ data.product.name }}</div>

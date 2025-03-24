@@ -11,6 +11,7 @@
 
 #product #image {
     width: 734px;
+    height: 686px;
 }
 
 #product #text {
@@ -26,6 +27,8 @@
 
 #product #image IMG {
     max-width: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 #product .price {
