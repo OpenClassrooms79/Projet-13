@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'messages' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block body_class %}class="private"{% endblock %}
+{% block body %}
+    <div id="account-body">
+        <h1>{% block body_title %}TITLE PAR DEFAUT{% endblock %}</h1>
+        {% block body_content %}{% endblock %}
+    </div>
+{% endblock %}

@@ -20,19 +20,19 @@ APP_SECRET
 DATABASE_URL
 ```
 
-## Créer des clés de chiffrement pour JWT
+## 3️⃣ Créer des clés de chiffrement pour JWT
 
 ```
 symfony console lexik:jwt:generate-keypair
 ```
 
-## Compilation des assets
+## 4️⃣ Compilation des assets
 
 ```
 symfony console asset-map:compile --no-debug
 ```
 
-## 3️⃣ Usage / Lancement
+## 5️⃣ Usage / Lancement
 
 ```bash
 symfony server:start

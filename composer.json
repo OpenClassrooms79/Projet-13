@@ -97,6 +97,7 @@
     }
   },
   "require-dev": {
+    "roave/security-advisories": "dev-latest",
     "doctrine/doctrine-fixtures-bundle": "^4.0",
     "symfony/maker-bundle": "^1.62.1",
     "zenstruck/foundry": "^2.3.8"

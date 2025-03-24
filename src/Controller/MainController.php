@@ -43,8 +43,8 @@ final class MainController extends AbstractController
         // suppression du compte
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // TODO ajout au panier à gérer
             $cartService->add($id);
+            return $this->redirect($request->getUri()); // rediriger vers la route actuelle
         }
 
         return $this->render('product/show.html.twig', [
