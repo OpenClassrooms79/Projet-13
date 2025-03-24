@@ -1,38 +1,58 @@
 # Mettez en place un site de e-commerce avec Symfony (projet 13)
 
+Bienvenue sur le projet **Green Goodies** développé avec Symfony 7.  
 Un site e-commerce avec gestion de panier et génération de commandes.
 
-## 1️⃣ Installation
+## 🛠️ Prérequis
+
+- PHP >= 8.2
+- Composer
+- Symfony CLI
+- MySQL ou MariaDB
+
+## 1️⃣ Installation 🚀
+
+Clonez le projet :
 
 ```bash
 https://github.com/OpenClassrooms79/Projet-13.git
 cd Projet-13
-composer install --no-dev --optimize-autoloader
-symfony console cache:warmup
 ```
 
-## 2️⃣ Configuration
-
-Créer un fichier `.env.local` et renseigner les variables suivantes:
+Installez les dépendances :
 
 ```bash
+composer install --no-dev --optimize-autoloader
+```
+
+Créez un fichier `.env.local` et renseignez les variables suivantes :
+
+```dotenv
 APP_SECRET
 DATABASE_URL
 ```
 
-## 3️⃣ Créer des clés de chiffrement pour JWT
+Créez la base et lancez les migrations :
 
 ```bash
-symfony console lexik:jwt:generate-keypair
+php bin/console doctrine:database:create
+php bin/console doctrine:migrations:migrate
 ```
 
-## 4️⃣ Compilation des assets
+## 2️⃣ Créer des clés de chiffrement pour JWT ⚙️
 
 ```bash
-symfony console asset-map:compile --no-debug
+php bin/console lexik:jwt:generate-keypair
 ```
 
-## 5️⃣ Usage / Lancement
+## 3️⃣ Compilation des assets 🎨
+
+```bash
+php bin/console asset-map:compile --no-debug
+php bin/console cache:warmup
+```
+
+## 4️⃣ Usage / Lancement 🌐
 
 ```bash
 symfony server:start
