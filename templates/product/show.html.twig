@@ -9,10 +9,12 @@
             <img src="{{ asset('/images/produits/' ~ product.picture|url_encode) }}" alt="Image">
         </div>
         <div id="text">
-            <h1>{{ product.name }}</h1>
-            {{ macros.formatPrice(product.price) }}<br>
-            Description
-            {{ product.fullDescription }}
+            <div>
+                <h1>{{ product.name }}</h1>
+                <p class="price">{{ macros.formatPrice(product.price) }}</p>
+                <p class="description-title">Description</p>
+                <p class="description">{{ product.fullDescription|nl2br }}</p>
+            </div>
 
             {{ form_start(form) }}
             {{ form_row(form.addToCart) }}

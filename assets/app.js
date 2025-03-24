@@ -5,5 +5,10 @@
  * which should already be in your base.html.twig.
  */
 import './styles/app.css';
+import './styles/welcome.css';
+import './styles/product.css';
+import './styles/register-login.css';
+import './styles/cart.css';
+import './styles/account.css';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
