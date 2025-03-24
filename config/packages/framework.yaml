@@ -1,6 +1,7 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
   secret: '%env(APP_SECRET)%'
+  csrf_protection: true
 
   # Note that the session will be started ONLY if you read or write from it.
   session: true
@@ -12,6 +13,15 @@ framework:
   translator:
     default_path: '%kernel.project_dir%/translations'
     fallbacks: [ 'en' ]
+
+  http_client: ~
+
+  # Activation des assets classiques (pour {{ asset() }} dans Twig)
+  assets: ~
+
+  # Activation d'AssetMapper (pour {{ importmap() }} dans Twig)
+  asset_mapper:
+    enabled: true
 
 when@test:
   framework:
