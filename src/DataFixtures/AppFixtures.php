@@ -18,7 +18,7 @@ use function random_int;
 
 class AppFixtures extends Fixture
 {
-    public function __construct(private OrderRepository $orderRepository) {}
+    public function __construct(private readonly OrderRepository $orderRepository) {}
 
     public function load(ObjectManager $manager): void
     {

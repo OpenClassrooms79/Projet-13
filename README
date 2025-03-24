@@ -1,0 +1,38 @@
+# Mettez en place un site de e-commerce avec Symfony (projet 13)
+
+Un site e-commerce avec gestion de panier et génération de commandes.
+
+## 1️⃣ Installation
+
+```bash
+https://github.com/OpenClassrooms79/Projet-13.git
+cd Projet-13
+composer install --no-dev --optimize-autoloader
+symfony console cache:warmup
+```
+
+## 2️⃣ Configuration
+
+Créer un fichier `.env.local` et renseigner les variables suivantes:
+
+```
+APP_SECRET
+DATABASE_URL
+```
+
+## Créer des clés de chiffrement pour JWT
+
+```
+symfony console lexik:jwt:generate-keypair
+```
+
+## Compilation des assets
+
+```
+symfony console asset-map:compile --no-debug
+```
+
+## 3️⃣ Usage / Lancement
+
+```bash
+symfony server:start
