@@ -8,7 +8,7 @@
 #account-body H1 {
     font-weight: 500;
     font-size: 20px;
-    line-height: 100%;
+    /*line-height: 100%;*/
     color: var(--header-text);
     margin-top: 102px;
     margin-bottom: 16px;
@@ -27,9 +27,9 @@
     font: inherit;
     cursor: pointer;
     text-decoration: none;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 100%;
+    /*font-weight: 400;*/
+    /*font-size: 14px;*/
+    /*line-height: 100%;*/
     margin: 0 0 17px;
 }
 
@@ -70,16 +70,16 @@
 #cart .name {
     color: black;
     font-weight: 600;
-    font-size: 14px;
-    line-height: 100%;
+    /*font-size: 14px;*/
+    /*line-height: 100%;*/
     margin-bottom: 6px;
 }
 
 #cart .quantity {
     color: var(--quantity-text);
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 100%;
+    /*font-weight: 400;*/
+    /*font-size: 14px;*/
+    /*line-height: 100%;*/
     margin-bottom: 13px;
 }
 
@@ -87,13 +87,13 @@
     color: var(--price-text);
     font-weight: 500;
     font-size: 18px;
-    line-height: 100%;
+    /*line-height: 100%;*/
 }
 
 #cart #total {
     width: 604px;
     height: 81px;
-    background-color: rgba(255, 253, 247, 0.7);
+    background-color: var(--cart-total-background);
     margin-bottom: 29px;
     display: flex;
     flex-direction: column;
@@ -106,20 +106,20 @@
 #cart .cart-total {
     color: var(--price-text);
     font-weight: 500;
-    font-size: 14px;
-    line-height: 100%;
+    /*font-size: 14px;*/
+    /*line-height: 100%;*/
 }
 
 #cart .cart-total-price {
     color: var(--price-text);
-    font-weight: 400;
+    /*font-weight: 400;*/
     font-size: 20px;
-    line-height: 100%;
+    /*line-height: 100%;*/
 }
 
 #cart .delivery-text {
     color: var(--delivery-text);
-    font-weight: 400;
+    /*font-weight: 400;*/
     font-size: 12px;
-    line-height: 100%;
+    /*line-height: 100%;*/
 }

@@ -12,8 +12,8 @@
                     <p>Découvrez notre univers de produits durables et éthiques pour une consommation
                         responsable</p>
 
-                    <p>Retrouvez des articles d’hygiène &amp; beauté, des accessoires &amp; boissons et du prêt à
-                        porter</p>
+                    <p>Retrouvez des articles d’hygiène &amp; beauté, des accessoires &amp; boissons et du prêt<br>
+                        à porter</p>
                 </div>
             </div>
         </div>
@@ -23,16 +23,25 @@
     </section>
 
     <section id="products-title">
-        <h3>Nos produits</h3>
+        <h3 class="uppercase">Nos produits</h3>
     </section>
 
+    {% set placeholders = ['images/produits/placeholder.png', 'images/produits/placeholder2.png'] %}
+    {% set idx = 0 %}
     <section id="products">
         {% for product in products %}
+            {% if product.picture %}
+                {% set image_path = '/images/produits/' ~ product.picture|url_encode %}
+            {% else %}
+                {% set image_path = placeholders[idx % placeholders|length] %}
+                {% set idx = idx + 1 %}
+            {% endif %}
             <article class="card">
-                <img class="card-img" src="{{ asset('/images/produits/' ~ product.picture|url_encode) }}"
+                <img class="card-img"
+                     src="{{ asset(image_path) }}"
                      alt="Image">
                 <div class="card-text">
-                    <h3 class="card-title">{{ product.name|escape }}</h3>
+                    <h3 class="card-title uppercase">{{ product.name|escape }}</h3>
                     <p class="card-description">{{ product.shortDescription|escape }}</p>
                     <p class="card-price">{{ macros.formatPrice(product.price) }}</p>
                     <a href="{{ path('product_show', {'id': product.id}) }}" class="card-link">Voir le produit</a>

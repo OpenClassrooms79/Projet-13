@@ -1,0 +1,20 @@
+#account-body {
+    margin-left: auto;
+    margin-right: auto;
+    /*text-align: center;*/
+}
+
+#account-body > SECTION {
+    width: 604px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#orders {
+    margin: 30px 60px 60px;
+
+}
+
+#account-body H3 {
+    font-weight: 500;
+}

@@ -1,32 +1,48 @@
-{% extends 'base.html.twig' %}
+{% extends 'user/base.html.twig' %}
 
 {% trans_default_domain 'messages' %}
 
-{% block title %}{% endblock %}
+{% block title %}Mon compte - {{ parent() }}{% endblock %}
 
-{% block body_class %}class="private"{% endblock %}
-{% block body %}
-    <h1>Mon compte</h1>
-    <div>
-        Mes commandes
-        {% for order in orders %}
-            <p>{{ order.num }} - {{ order.orderDate|format_date(locale: 'fr', pattern: 'dd/MM/yyyy') }}
-                - {{ order.total }}€</p>
-        {% endfor %}
+{% block body_title %}Mon compte{% endblock %}
 
-    </div>
-    <div>
-        Mon accès API
-        {{ form_start(apiForm) }}
-        {{ form_row(apiForm.apiAccess) }}
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        {{ form_end(apiForm) }}
-    </div>
+{% block body_content %}
+    <section>
+        <section>
+            <h3>Mes commandes</h3>
+            <table id="orders">
+                <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Date</th>
+                    <th>Prix</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td>{{ order.num }}</td>
+                        <td>{{ order.orderDate|format_date(locale: 'fr', pattern: 'dd/MM/yyyy') }}</td>
+                        <td>{{ order.total }}€</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </section>
 
-    <div>
-        {{ form_start(deleteForm) }}
-        {{ form_row(deleteForm.deleteAccount) }}
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        {{ form_end(deleteForm) }}
-    </div>
+        <section>
+            <h3>Mon accès API</h3>
+            {{ form_start(apiForm) }}
+            {{ form_row(apiForm.apiAccess) }}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            {{ form_end(apiForm) }}
+        </section>
+
+        <section>
+            {{ form_start(deleteForm) }}
+            {{ form_row(deleteForm.deleteAccount) }}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            {{ form_end(deleteForm) }}
+        </section>
+    </section>
 {% endblock %}
