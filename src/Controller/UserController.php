@@ -60,11 +60,10 @@ final class UserController extends AbstractController
             $this->entityManager->persist($user);
             $this->entityManager->flush();
 
-            // TODO définir la route de redirection
-            return $this->redirectToRoute('app_main');
+            return $this->redirectToRoute('user_account');
         }
 
-        return $this->render('user/register.html.twig', [
+        return $this->render('main/register.html.twig', [
             'form' => $form,
         ]);
     }
@@ -88,7 +87,7 @@ final class UserController extends AbstractController
             ],
         );
 
-        return $this->render('user/login.html.twig', [
+        return $this->render('main/login.html.twig', [
             'form' => $form,
             'error' => $authenticationUtils->getLastAuthenticationError(), // dernier message d'erreur
         ]);
@@ -128,7 +127,7 @@ final class UserController extends AbstractController
 
             // suppresion de la session
             $this->security->logout();
-            return $this->redirectToRoute('app_main');
+            return $this->redirectToRoute('app_main'); // rediriger vers la page d'accueil
         }
 
         return $this->render('user/account.html.twig', [
@@ -179,7 +178,7 @@ final class UserController extends AbstractController
             $this->entityManager->persist($order);
             $this->entityManager->flush();
             $cartService->clear(); // vider le panier une fois la commande a été créée
-            return $this->redirectToRoute('user_account');
+            return $this->redirectToRoute('user_account'); // afficher la liste des commandes
         }
 
         $cart = $cartService->getCart();
@@ -190,6 +189,7 @@ final class UserController extends AbstractController
             if ($product === null) {
                 continue; // au cas où un produit a été supprimé de la base de données
             }
+
 
             $subtotal = $product->getPrice() * $quantity;
             $cartData[] = [
