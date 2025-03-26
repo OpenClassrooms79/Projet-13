@@ -30,7 +30,7 @@ class LoginType extends AbstractType
 
         $builder
             ->add('email', EmailType::class, [
-                'label' => 'E-mail',
+                'label' => 'Adresse e-mail',
                 'data' => $options['last_username'], // dernière adresse e-mail saisie dans le formulaire
                 'constraints' => [
                     new NotBlank([

@@ -1,10 +1,19 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-2-horizontal-blocks.html.twig' %}
 
 {% trans_default_domain 'messages' %}
 
 {% block title %}Se connecter à {{ parent() }}{% endblock %}
 
-{% block body %}
+{% set section_id = 'login' %}
+
+{% set block1 = 'image' %}
+{% block block1 %}
+    <img class="card-img"
+         src="{{ asset('/images/conviction.jpg') }}" alt="Login">
+{% endblock %}
+
+{% set block2 = 'text' %}
+{% block block2 %}
     <div>
         <h1 class="register">Connexion</h1>
 
@@ -16,7 +25,6 @@
         {{ form_row(form.email) }}
         {{ form_row(form.password) }}
         {{ form_row(form.loginSubmit) }}
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         {{ form_end(form) }}
 
         <a href="{{ path('user_register') }}" class="no-account-or-already-registered">Pas encore de compte ?

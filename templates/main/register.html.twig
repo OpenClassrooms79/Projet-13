@@ -1,18 +1,34 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-2-horizontal-blocks.html.twig' %}
 
 {% block title %}S'inscrire à {{ parent() }}{% endblock %}
 
-{% block body %}
+{% set section_id = 'register' %}
+
+{% set block1 = 'image' %}
+{% block block1 %}
+    <img class="card-img"
+         src="{{ asset('/images/register.jpg') }}" alt="Inscription">
+{% endblock %}
+
+{% set block2 = 'text' %}
+{% block block2 %}
     <div>
         <h1 class="register">Inscription</h1>
         <h2>Tous les champs sont obligatoires.</h2>
+
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'messages', 'fr') }}</div>
+        {% endif %}
 
         {{ form_start(form) }}
         {{ form_row(form.lastname) }}
         {{ form_row(form.firstname) }}
         {{ form_row(form.email) }}
         {{ form_row(form.password) }}
-        {{ form_widget(form.cguAccepted) }} {{ field_label(form.cguAccepted) }}
+        <div class="checkbox-container">
+            <div class="checkbox">{{ form_widget(form.cguAccepted) }}</div>
+            <div class="checkbox-label">{{ form_label(form.cguAccepted) }}</div>
+        </div>
         {{ form_row(form.registerSubmit) }}
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         {{ form_end(form) }}

@@ -58,7 +58,7 @@ class RegisterType extends AbstractType
                 ],
             ])
             ->add('email', null, [
-                'label' => 'E-mail',
+                'label' => 'Adresse e-mail',
                 'constraints' => [
                     new NotBlank([
                         'allowNull' => false,

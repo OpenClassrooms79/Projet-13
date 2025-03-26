@@ -31,7 +31,7 @@ final class UserController extends AbstractController
     ) {}
 
     #[Route('/inscription', name: 'user_register')]
-    public function register(Request $request, UserPasswordHasherInterface $passwordHasher): Response
+    public function register(Request $request, UserPasswordHasherInterface $passwordHasher, AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->security->isGranted('IS_AUTHENTICATED_FULLY')) {
             return $this->redirectToRoute('user_account');
@@ -65,6 +65,7 @@ final class UserController extends AbstractController
 
         return $this->render('main/register.html.twig', [
             'form' => $form,
+            'error' => $authenticationUtils->getLastAuthenticationError(), // dernier message d'erreur
         ]);
     }
 
@@ -102,6 +103,10 @@ final class UserController extends AbstractController
     #[Route(path: '/compte', name: 'user_account')]
     public function account(Request $request, Security $security): Response
     {
+        if (!$this->security->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('user_login');
+        }
+
         /** @var User $user */
         $user = $security->getUser();
 
@@ -140,6 +145,10 @@ final class UserController extends AbstractController
     #[Route(path: '/panier', name: 'user_cart')]
     public function cart(Request $request, CartService $cartService, ProductRepository $productRepository): Response
     {
+        if (!$this->security->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('user_login');
+        }
+
         $empty_cart_form = $this->createForm(EmptyCartType::class);
         $confirm_order_form = $this->createForm(ConfirmOrderType::class);
 

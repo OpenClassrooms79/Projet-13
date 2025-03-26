@@ -47,7 +47,7 @@ final class MainController extends AbstractController
             return $this->redirect($request->getUri()); // rediriger vers la route actuelle
         }
 
-        return $this->render('product/show.html.twig', [
+        return $this->render('main/show.html.twig', [
             'product' => $product,
             'form' => $form,
         ]);
