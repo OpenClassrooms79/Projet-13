@@ -34,7 +34,7 @@ BODY {
     font-family: Inter, serif;
     font-weight: 400;
     font-size: 14px;
-    line-height: 100%;
+    /* line-height: 100%; */
     letter-spacing: 0;
 }
 
@@ -49,14 +49,9 @@ BODY.private {
 }
 
 HEADER {
-    /*margin-left: auto;
-    margin-right: auto;*/
     height: 81px;
     background-color: var(--main-background);
     color: var(--header-text);
-    /*font-size: 14px;*/
-    /*font-weight: 400;*/
-    /*line-height: 100%;*/
 }
 
 HEADER NAV {
@@ -71,18 +66,13 @@ HEADER NAV {
 
 HEADER MENU LI A {
     color: var(--header-text);
-    /*font-weight: 400;*/
-    /*font-size: 14px;*/
-    /*line-height: 100%;*/
     text-decoration: none;
 }
 
 .logo {
     color: var(--logo-color);
     font-family: "Playfair Display", serif;
-    /*font-size: 14px;*/
     font-weight: 500;
-    /*line-height: 100%;*/
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -123,8 +113,6 @@ FOOTER {
     height: 81px;
     background-color: var(--footer-background);
     color: var(--footer-text);
-    /*font-size: 14px;*/
-    /*font-weight: 400;*/
 }
 
 FOOTER NAV {
@@ -139,7 +127,6 @@ FOOTER NAV {
 H1 {
     font-size: 64px;
     font-weight: 500;
-    /*line-height: 100%;*/
 }
 
 
@@ -183,8 +170,6 @@ H1 {
 H3 {
     color: var(--header-text);
     font-weight: 500;
-    /*font-size: 14px;*/
-    /*line-height: 100%;*/
 }
 
 .uppercase {
@@ -196,8 +181,15 @@ H3 {
     height: 77px;
     background-color: var(--submit-button-background);
     color: var(--submit-button-text);
-    /*font-weight: 400;*/
-    /*font-size: 14px;*/
-    /*line-height: 100%;*/
     text-align: center;
+}
+
+.two-hblocks {
+    display: flex;
+    flex-direction: row;
+}
+
+INPUT:not([type="submit"]):not([type="reset"]):not([type="button"]) {
+    width: 479px;
+    height: 67px;
 }

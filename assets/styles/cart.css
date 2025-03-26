@@ -8,7 +8,6 @@
 #account-body H1 {
     font-weight: 500;
     font-size: 20px;
-    /*line-height: 100%;*/
     color: var(--header-text);
     margin-top: 102px;
     margin-bottom: 16px;
@@ -27,9 +26,6 @@
     font: inherit;
     cursor: pointer;
     text-decoration: none;
-    /*font-weight: 400;*/
-    /*font-size: 14px;*/
-    /*line-height: 100%;*/
     margin: 0 0 17px;
 }
 
@@ -70,16 +66,11 @@
 #cart .name {
     color: black;
     font-weight: 600;
-    /*font-size: 14px;*/
-    /*line-height: 100%;*/
     margin-bottom: 6px;
 }
 
 #cart .quantity {
     color: var(--quantity-text);
-    /*font-weight: 400;*/
-    /*font-size: 14px;*/
-    /*line-height: 100%;*/
     margin-bottom: 13px;
 }
 
@@ -87,7 +78,6 @@
     color: var(--price-text);
     font-weight: 500;
     font-size: 18px;
-    /*line-height: 100%;*/
 }
 
 #cart #total {
@@ -106,20 +96,14 @@
 #cart .cart-total {
     color: var(--price-text);
     font-weight: 500;
-    /*font-size: 14px;*/
-    /*line-height: 100%;*/
 }
 
 #cart .cart-total-price {
     color: var(--price-text);
-    /*font-weight: 400;*/
     font-size: 20px;
-    /*line-height: 100%;*/
 }
 
 #cart .delivery-text {
     color: var(--delivery-text);
-    /*font-weight: 400;*/
     font-size: 12px;
-    /*line-height: 100%;*/
 }

@@ -1,0 +1,28 @@
+{% extends 'base-2-horizontal-blocks.html.twig' %}
+{% import "macros.html.twig" as macros %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% set section_id = 'product' %}
+
+{% set block1 = 'image' %}
+{% block block1 %}
+    <img class="card-img"
+         src="{{ asset(product.picture ? '/images/produits/' ~ product.picture|url_encode : '/images/produits/placeholder.png') }}"
+         alt="{{ product.name|escape }}">
+{% endblock %}
+
+{% set block2 = 'text' %}
+{% block block2 %}
+    <div>
+        <h1>{{ product.name }}</h1>
+        <p class="price">{{ macros.formatPrice(product.price) }}</p>
+        <p class="description-title">Description</p>
+        <p class="description">{{ product.fullDescription|nl2br }}</p>
+    </div>
+
+    {{ form_start(form) }}
+    {{ form_row(form.addToCart) }}
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    {{ form_end(form) }}
+{% endblock %}

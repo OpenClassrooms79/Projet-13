@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <section id="{{ section_id }}" class="two-hblocks">
+        <div id="{{ block1 }}">
+            {% block block1 %}{% endblock %}
+        </div>
+        <div id="{{ block2 }}">
+            {% block block2 %}{% endblock %}
+        </div>
+    </section>
+{% endblock %}
