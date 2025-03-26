@@ -3,17 +3,77 @@
     margin-right: auto;
 }
 
-#account-body > SECTION {
+#account-sections {
     width: 604px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 77px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-#orders {
-    margin: 30px 60px 60px;
+#orders, #api-access, #delete-account {
+    padding: 60px 60px 60px 60px;
+    background-color: #FFFDF7;
+}
 
+.account H1 {
+    font-weight: 500;
+    font-size: 20px;
+    color: var(--header-text);
+    margin-top: 43px;
+    margin-bottom: 43px;
+    text-align: center;
 }
 
 #account-body H3 {
-    font-weight: 500;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+#account-body .submit-button {
+    margin-bottom: 0;
+}
+
+#orders TABLE {
+    border-collapse: collapse; /* Pour que les bordures soient collées les unes aux autres */
+}
+
+#orders TR {
+    border-bottom: 1px solid #CCCCCC; /* Ajoute une ligne horizontale */
+}
+
+/* enlever la bordure sur la dernière ligne du tableau */
+#orders TR:last-child {
+    border-bottom: none;
+}
+
+#orders TH {
+    text-align: left;
+    font-weight: 400;
+    color: var(--description-color);
+}
+
+#orders TH:last-child {
+    text-align: left;
+}
+
+#orders TD {
+    padding-top: 20px;
+    padding-bottom: 30px;
+    color: var(--header-text);
+}
+
+/* Colonne 3 : Centrée */
+#orders TD:nth-child(2), TD:nth-child(4) {
+    width: 50%; /* la colonne va prendre la moitié de la largeur disponible */
+}
+
+#orders TD:last-child {
+    text-align: right;
+}
+
+#orders tr:last-child td {
+    padding-bottom: 0;
 }

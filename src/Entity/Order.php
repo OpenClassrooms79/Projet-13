@@ -46,7 +46,7 @@ class Order
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
-        $this->num = 'CMD-' . strtoupper(bin2hex(random_bytes(5)));
+        $this->num = strtoupper(bin2hex(random_bytes(5)));
     }
 
     public function getId(): ?int

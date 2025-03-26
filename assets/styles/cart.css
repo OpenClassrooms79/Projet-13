@@ -5,7 +5,7 @@
     margin-bottom: 146px;
 }
 
-#account-body H1 {
+.cart H1 {
     font-weight: 500;
     font-size: 20px;
     color: var(--header-text);

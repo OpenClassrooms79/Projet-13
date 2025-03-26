@@ -6,6 +6,8 @@
 
 {% block body_title %}Mon panier{% endblock %}
 
+{% block body_class %}class="private cart"{% endblock %}
+
 {% block body_content %}
     <div id="cart">
         {% if cartData is empty %}
@@ -35,7 +37,8 @@
                         <div class="text-block">
                             <div class="name">{{ data.product.name }}</div>
                             <div class="quantity">Quantité : {{ data.quantity }}</div>
-                            <div class="price">{{ data.product.price|format_currency(locale: 'fr', currency: 'EUR') }}</div>
+                            <div class="price"
+                                 title="Prix unitaire">{{ data.product.price|format_currency(locale: 'fr', currency: 'EUR') }}</div>
                         </div>
                     </div>
                 {% endfor %}
