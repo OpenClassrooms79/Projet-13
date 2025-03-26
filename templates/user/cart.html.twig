@@ -8,47 +8,51 @@
 
 {% block body_content %}
     <div id="cart">
-        <div id="buttons">
-            {{ form_start(empty_cart_form) }}
-            {{ form_row(empty_cart_form.emptyCart) }}
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-            {{ form_end(empty_cart_form) }}
-        </div>
-
-        {% set placeholders = ['images/produits/placeholder.png', 'images/produits/placeholder2.png'] %}
-        {% set idx = 0 %}
-        <div id="products">
-            {% for data in cartData %}
-                {% if data.product.picture %}
-                    {% set image_path = '/images/produits/' ~ data.product.picture|url_encode %}
-                {% else %}
-                    {% set image_path = placeholders[idx % placeholders|length] %}
-                    {% set idx = idx + 1 %}
-                {% endif %}
-                <div class="product">
-                    <div class="img-block">
-                        <img src="{{ asset(image_path) }}" alt="{{ data.product.name|escape }}">
-                    </div>
-                    <div class="text-block">
-                        <div class="name">{{ data.product.name }}</div>
-                        <div class="quantity">Quantité : {{ data.quantity }}</div>
-                        <div class="price">{{ data.product.price|format_currency(locale: 'fr', currency: 'EUR') }}</div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-
-        <div id="total">
-            <div>
-                <span class="cart-total">Total panier : </span>
-                <span class="cart-total-price">{{ total|format_currency(locale: 'fr', currency: 'EUR') }}</span>
+        {% if cartData is empty %}
+            <div class="empty">Votre panier est vide.</div>
+        {% else %}
+            <div id="buttons">
+                {{ form_start(empty_cart_form) }}
+                {{ form_row(empty_cart_form.emptyCart) }}
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                {{ form_end(empty_cart_form) }}
             </div>
-            <div class="">Frais de livraison : Offerts</div>
-        </div>
 
-        {{ form_start(confirm_order_form) }}
-        {{ form_row(confirm_order_form.confirmOrder) }}
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        {{ form_end(confirm_order_form) }}
+            {% set placeholders = ['images/produits/placeholder.png', 'images/produits/placeholder2.png'] %}
+            {% set idx = 0 %}
+            <div id="products">
+                {% for data in cartData %}
+                    {% if data.product.picture %}
+                        {% set image_path = '/images/produits/' ~ data.product.picture|url_encode %}
+                    {% else %}
+                        {% set image_path = placeholders[idx % placeholders|length] %}
+                        {% set idx = idx + 1 %}
+                    {% endif %}
+                    <div class="product">
+                        <div class="img-block">
+                            <img src="{{ asset(image_path) }}" alt="{{ data.product.name|escape }}">
+                        </div>
+                        <div class="text-block">
+                            <div class="name">{{ data.product.name }}</div>
+                            <div class="quantity">Quantité : {{ data.quantity }}</div>
+                            <div class="price">{{ data.product.price|format_currency(locale: 'fr', currency: 'EUR') }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div id="total">
+                <div>
+                    <span class="cart-total">Total panier : </span>
+                    <span class="cart-total-price">{{ total|format_currency(locale: 'fr', currency: 'EUR') }}</span>
+                </div>
+                <div class="">Frais de livraison : Offerts</div>
+            </div>
+
+            {{ form_start(confirm_order_form) }}
+            {{ form_row(confirm_order_form.confirmOrder) }}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            {{ form_end(confirm_order_form) }}
+        {% endif %}
     </div>
 {% endblock %}

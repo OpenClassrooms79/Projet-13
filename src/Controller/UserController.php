@@ -162,7 +162,6 @@ final class UserController extends AbstractController
         // validation de la commande
         $confirm_order_form->handleRequest($request);
         if ($confirm_order_form->isSubmitted() && $confirm_order_form->isValid()) {
-            // TODO transformer le contenu du panier en nouvelle commande
             $cart = $cartService->getCart();
             $order = new Order();
             $order->setUser($this->security->getUser());

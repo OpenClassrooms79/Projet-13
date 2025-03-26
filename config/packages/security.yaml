@@ -46,7 +46,7 @@ security:
       form_login:
         login_path: user_login
         check_path: user_login
-        default_target_path: app_main # URL de redirection automatique après login avec succès // TODO à modifier
+        default_target_path: user_account # URL de redirection automatique après login avec succès
         username_parameter: login[email]
         password_parameter: login[password]
       logout:
