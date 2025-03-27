@@ -25,9 +25,12 @@
         {{ form_row(form.firstname) }}
         {{ form_row(form.email) }}
         {{ form_row(form.password) }}
-        <div class="checkbox-container">
-            <div class="checkbox">{{ form_widget(form.cguAccepted) }}</div>
-            <div class="checkbox-label">{{ form_label(form.cguAccepted) }}</div>
+        <div>
+            <div class="checkbox-error">{{ form_errors(form.cguAccepted) }}</div>
+            <div class="checkbox-container">
+                <div class="checkbox">{{ form_widget(form.cguAccepted) }}</div>
+                <div class="checkbox-label">{{ form_label(form.cguAccepted) }}</div>
+            </div>
         </div>
         {{ form_row(form.registerSubmit) }}
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">

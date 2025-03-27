@@ -6,14 +6,21 @@ use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotCompromisedPassword;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+
+use function mb_strtolower;
 
 class RegisterType extends AbstractType
 {
@@ -26,48 +33,33 @@ class RegisterType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        // récupération de la définition de l'entité $class
-        $class = $builder->getDataClass();
-        $metadata = $this->entityManager->getClassMetadata($class);
+        // récupération de la définition de l'entité User
+        $metadata = $this->entityManager->getClassMetadata($builder->getDataClass());
 
         $builder
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom',
                 'constraints' => [
-                    new NotBlank([
-                        'allowNull' => false,
-                        'message' => 'Le prénom est requis.',
-                    ]),
                     new Length([
                         'max' => $metadata->getFieldMapping('firstname')->length,
-                        'maxMessage' => 'Le prénom doit avoir au plus {{ limit }} caractères.',
                     ]),
                 ],
             ])
             ->add('lastname', TextType::class, [
                 'label' => 'Nom',
                 'constraints' => [
-                    new NotBlank([
-                        'allowNull' => false,
-                        'message' => 'Le nom est requis.',
-                    ]),
                     new Length([
                         'max' => $metadata->getFieldMapping('lastname')->length,
-                        'maxMessage' => 'Le nom doit avoir au plus {{ limit }} caractères.',
                     ]),
                 ],
             ])
-            ->add('email', null, [
+            ->add('email', EmailType::class, [
                 'label' => 'Adresse e-mail',
                 'constraints' => [
-                    new NotBlank([
-                        'allowNull' => false,
-                        'message' => 'L\'adresse e-mail est requise.',
-                    ]),
                     new Length([
                         'max' => $metadata->getFieldMapping('email')->length,
-                        'maxMessage' => 'L\'adresse e-mail doit avoir au plus {{ limit }} caractères.',
                     ]),
+                    new Email(),
                 ],
             ])
             ->add('password', RepeatedType::class, [
@@ -77,18 +69,19 @@ class RegisterType extends AbstractType
                 'first_options' => ['label' => 'Mot de passe'],
                 'second_options' => ['label' => 'Confirmation mot de passe'],
                 'constraints' => [
-                    new NotBlank([
-                        'allowNull' => false,
-                        'message' => 'Le mot de passe est requis.',
+                    new Length([
+                        'min' => 8,
+                        'max' => $metadata->getFieldMapping('password')->length,
                     ]),
+                    new NotCompromisedPassword(),
+                    new Callback([$this, 'validatePassword']),
                 ],
             ])->add('cguAccepted', CheckboxType::class, [
                 'mapped' => false,
                 'label' => "J'accepte les CGU de GreenGoodies",
                 'constraints' => [
-                    new NotBlank([
-                        'allowNull' => false,
-                        'message' => 'Vous devez accepter les CGU.',
+                    new IsTrue([
+                        'message' => 'Vous devez accepter les Conditions Générales d\'Utilisation.',
                     ]),
                 ],
             ])
@@ -105,5 +98,26 @@ class RegisterType extends AbstractType
         $resolver->setDefaults([
             'data_class' => User::class,
         ]);
+    }
+
+    public function validatePassword($password, ExecutionContextInterface $context): void
+    {
+        $user = $context->getRoot()->getData(); // récupère l'objet User
+
+        if (!$user instanceof User) {
+            return; // s'assurer que l'on traite bien un objet User
+        }
+
+        $firstname = mb_strtolower($user->getFirstName());
+        $lastname = mb_strtolower($user->getLastName());
+        $email = mb_strtolower($user->getEmail());
+        $password = mb_strtolower($password);
+
+        if (in_array($password, [$email, $firstname, $lastname], true)) {
+            $context
+                ->buildViolation('Le mot de passe ne peut pas être identique à votre prénom, votre nom ou votre adresse e-mail.')
+                ->atPath('password')
+                ->addViolation();
+        }
     }
 }

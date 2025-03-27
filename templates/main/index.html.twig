@@ -4,84 +4,89 @@
 {% block title %}Bienvenue chez Green Goodies{% endblock %}
 
 {% block body %}
-    <section id="welcome">
-        <div class="left">
+    <section id="index">
+        <section id="welcome">
+            <div class="left">
+                <div>
+                    <h1>Bienvenue</h1>
+                    <div id="welcome-text">
+                        <p>Découvrez notre univers de produits durables et éthiques pour une consommation
+                            responsable</p>
+
+                        <p>Retrouvez des articles d’hygiène &amp; beauté, des accessoires &amp; boissons et du prêt<br>
+                            à porter</p>
+                    </div>
+                </div>
+            </div>
             <div>
-                <h1>Bienvenue</h1>
-                <div id="welcome-text">
-                    <p>Découvrez notre univers de produits durables et éthiques pour une consommation
-                        responsable</p>
+                <img src="images/welcome.jpg" alt="Bienvenue !">
+            </div>
+        </section>
 
-                    <p>Retrouvez des articles d’hygiène &amp; beauté, des accessoires &amp; boissons et du prêt<br>
-                        à porter</p>
+        <section id="products-title">
+            <h3 class="uppercase">Nos produits</h3>
+        </section>
+
+        {% set placeholders = ['images/produits/placeholder.png', 'images/produits/placeholder2.png'] %}
+        {% set idx = 0 %}
+        <section id="products">
+            {% for product in products %}
+                {% if product.picture %}
+                    {% set image_path = '/images/produits/' ~ product.picture|url_encode %}
+                {% else %}
+                    {% set image_path = placeholders[idx % placeholders|length] %}
+                    {% set idx = idx + 1 %}
+                {% endif %}
+                <article class="card">
+                    <img class="card-img"
+                         src="{{ asset(image_path) }}"
+                         alt="Image">
+                    <div class="card-text">
+                        <p class="card-title">{{ product.name|escape }}</p>
+                        <p class="card-description">{{ product.shortDescription|escape }}</p>
+                        <p class="card-price">{{ macros.formatPrice(product.price) }}</p>
+                        <div class="card-box-link">
+                            <a href="{{ path('product_show', {'id': product.id}) }}" class="card-link">Voir le
+                                produit</a>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+        </section>
+
+        <section id="conviction">
+            <div>
+                <div id="conviction-text">
+                    <h2>Notre conviction</h2>
+                    <p>Chez GreenGoodies, nous croyons en un monde où le commerce<br>
+                        peut être synonyme de bien-être pour la planète et ses<br>
+                        habitants. Notre mission est de vous proposer une sélection<br>
+                        rigoureuse de produits qui allient qualité, durabilité et éthique</p>
                 </div>
             </div>
-        </div>
-        <div>
-            <img src="images/welcome.jpg" alt="Bienvenue !">
-        </div>
-    </section>
+            <div>
+                <img src="images/conviction.jpg" alt="Un joli arbuste">
+            </div>
+        </section>
 
-    <section id="products-title">
-        <h3 class="uppercase">Nos produits</h3>
-    </section>
-
-    {% set placeholders = ['images/produits/placeholder.png', 'images/produits/placeholder2.png'] %}
-    {% set idx = 0 %}
-    <section id="products">
-        {% for product in products %}
-            {% if product.picture %}
-                {% set image_path = '/images/produits/' ~ product.picture|url_encode %}
-            {% else %}
-                {% set image_path = placeholders[idx % placeholders|length] %}
-                {% set idx = idx + 1 %}
-            {% endif %}
-            <article class="card">
-                <img class="card-img"
-                     src="{{ asset(image_path) }}"
-                     alt="Image">
-                <div class="card-text">
-                    <h3 class="card-title uppercase">{{ product.name|escape }}</h3>
-                    <p class="card-description">{{ product.shortDescription|escape }}</p>
-                    <p class="card-price">{{ macros.formatPrice(product.price) }}</p>
-                    <a href="{{ path('product_show', {'id': product.id}) }}" class="card-link">Voir le produit</a>
+        <section id="values">
+            <div>
+                <img src="images/values.jpg" alt="Nos valeurs">
+            </div>
+            <div>
+                <div id="values-text">
+                    <h2>Nos valeurs</h2>
+                    <p>Durabilité : Nous sélectionnons soigneusement des produits qui respectent l'environnement et
+                        favorisent
+                        la durabilité.</p>
+                    <p>Éthique : Nous nous engageons à travailler avec des partenaires et des fournisseurs qui partagent
+                        nos
+                        valeurs éthiques.</p>
+                    <p>Écologie : Nous encourageons des pratiques respectueuses de l'écosystème et privilégions les
+                        matériaux
+                        écologiques.</p>
                 </div>
-            </article>
-        {% endfor %}
-    </section>
-
-    <section id="products"></section>
-    <section id="conviction">
-        <div>
-            <div id="conviction-text">
-                <h2>Notre conviction</h2>
-                <p>Chez GreenGoodies, nous croyons en un monde où le commerce peut être synonyme de bien-être pour la
-                    planète et ses habitants. Notre mission est de vous proposer une sélection rigoureuse de produits
-                    qui
-                    allient qualité, durabilité et éthique</p>
             </div>
-        </div>
-        <div>
-            <img src="images/conviction.jpg" alt="Un joli arbuste">
-        </div>
-    </section>
-
-    <section id="values">
-        <div>
-            <img src="images/values.jpg" alt="Nos valeurs">
-        </div>
-        <div>
-            <div id="values-text">
-                <h2>Nos valeurs</h2>
-                <p>Durabilité : Nous sélectionnons soigneusement des produits qui respectent l'environnement et
-                    favorisent
-                    la durabilité.</p>
-                <p>Éthique : Nous nous engageons à travailler avec des partenaires et des fournisseurs qui partagent nos
-                    valeurs éthiques.</p>
-                <p>Écologie : Nous encourageons des pratiques respectueuses de l'écosystème et privilégions les
-                    matériaux
-                    écologiques.</p>
-            </div>
-        </div>
+        </section>
     </section>
 {% endblock %}

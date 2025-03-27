@@ -10,8 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 class LoginType extends AbstractType
 {
@@ -24,34 +22,17 @@ class LoginType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        // récupération de la définition de l'entité $class
-        $class = $builder->getDataClass();
-        $metadata = $this->entityManager->getClassMetadata($class);
+        // récupération de la définition de l'entité User
+        $metadata = $this->entityManager->getClassMetadata($builder->getDataClass());
 
         $builder
             ->add('email', EmailType::class, [
                 'label' => 'Adresse e-mail',
                 'data' => $options['last_username'], // dernière adresse e-mail saisie dans le formulaire
-                'constraints' => [
-                    new NotBlank([
-                        'allowNull' => false,
-                        'message' => 'L\'adresse e-mail est requise.',
-                    ]),
-                    new Length([
-                        'max' => $metadata->getFieldMapping('email')->length,
-                        'maxMessage' => 'L\'adresse e-mail doit avoir au plus {{ limit }} caractères.',
-                    ]),
-                ],
             ])
             ->add('password', PasswordType::class, [
                 'label' => 'Mot de passe',
                 'required' => true,
-                'constraints' => [
-                    new NotBlank([
-                        'allowNull' => false,
-                        'message' => 'Le mot de passe est requis.',
-                    ]),
-                ],
             ])
             ->add('loginSubmit', SubmitType::class, [
                 'label' => 'Se connecter',
