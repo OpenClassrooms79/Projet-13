@@ -43,7 +43,11 @@
                          alt="Image">
                     <div class="card-text">
                         <p class="card-title">{{ product.name|escape }}</p>
-                        <p class="card-description">{{ product.shortDescription|escape }}</p>
+                        <p class="card-description">
+                            {{ product.shortDescription|length > 60
+                            ? product.shortDescription|slice(0, 60) ~ '…'|escape
+                            : product.shortDescription|escape }}
+                        </p>
                         <p class="card-price">{{ macros.formatPrice(product.price) }}</p>
                         <div class="card-box-link">
                             <a href="{{ path('product_show', {'id': product.id}) }}" class="card-link">Voir le
