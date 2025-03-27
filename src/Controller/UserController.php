@@ -60,7 +60,8 @@ final class UserController extends AbstractController
             $this->entityManager->persist($user);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('user_account');
+            $this->security->login($user);
+            return $this->redirectToRoute('app_main');
         }
 
         return $this->render('main/register.html.twig', [

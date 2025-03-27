@@ -17,11 +17,10 @@
     <div>
         <h1 class="register">Connexion</h1>
 
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'messages', 'fr') }}</div>
-        {% endif %}
-
         {{ form_start(form) }}
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
         {{ form_row(form.email) }}
         {{ form_row(form.password) }}
         {{ form_row(form.loginSubmit) }}

@@ -52,19 +52,16 @@ class AppFixtures extends Fixture
     public function loadUsers(): void
     {
         UserFactory::createMany(20);
-        //UserFactory::createMany(2);
     }
 
     public function loadOrders(): void
     {
         OrderFactory::createMany(100);
-        //OrderFactory::createMany(3);
     }
 
     public function loadOrderDetails(): void
     {
         OrderDetailFactory::new()->createMany(1000);
-        //OrderDetailFactory::createMany(10);
     }
 
     private function updateOrdersTotal(ObjectManager $manager): void

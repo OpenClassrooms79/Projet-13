@@ -92,9 +92,10 @@
     }
   },
   "require-dev": {
-    "roave/security-advisories": "dev-latest",
     "doctrine/doctrine-fixtures-bundle": "^4.1",
+    "roave/security-advisories": "dev-latest",
     "symfony/maker-bundle": "^1.62.1",
+    "symfony/web-profiler-bundle": "7.2.*",
     "zenstruck/foundry": "^2.3.8"
   }
 }
