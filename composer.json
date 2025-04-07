@@ -7,8 +7,8 @@
     "php": ">=8.2",
     "ext-ctype": "*",
     "ext-iconv": "*",
-    "api-platform/doctrine-orm": "^4.1.3",
-    "api-platform/symfony": "^4.1.3",
+    "api-platform/doctrine-orm": "^4.1.4",
+    "api-platform/symfony": "^4.1.4",
     "beberlei/doctrineextensions": "^1.5",
     "doctrine/annotations": "^2.0.2",
     "doctrine/dbal": "^3.9.4",
@@ -96,6 +96,6 @@
     "roave/security-advisories": "dev-latest",
     "symfony/maker-bundle": "^1.62.1",
     "symfony/web-profiler-bundle": "7.2.*",
-    "zenstruck/foundry": "^2.3.8"
+    "zenstruck/foundry": "^2.3.10"
   }
 }

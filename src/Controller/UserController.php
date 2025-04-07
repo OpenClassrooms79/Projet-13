@@ -46,9 +46,6 @@ final class UserController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // TODO valeur à vérifier
-            $form->get('cguAccepted')->getData();
-
             // hash the password (based on the security.yaml config for the $user class)
             $hashedPassword = $passwordHasher->hashPassword(
                 $user,

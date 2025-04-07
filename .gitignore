@@ -3,6 +3,7 @@
 *.odt
 *.pdf
 *.txt
+*.zip
 desktop.ini
 
 ###> symfony/framework-bundle ###
