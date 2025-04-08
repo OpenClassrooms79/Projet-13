@@ -5,6 +5,8 @@
 *.txt
 *.zip
 desktop.ini
+*.odp
+.~*
 
 ###> symfony/framework-bundle ###
 /.env.local
