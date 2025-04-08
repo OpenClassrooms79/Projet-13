@@ -38,12 +38,14 @@ final class MainController extends AbstractController
             ]);
         }
 
-        $form = $this->createForm(AddToCartType::class);
+        $form = $this->createForm(AddToCartType::class, null, [
+            'current_quantity' => $cartService->getQuantity($id), // quantité déjà dans le panier
+        ]);
 
-        // suppression du compte
+        // ajout dans le panier
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $cartService->add($id);
+            $cartService->add($id, $form->get('quantity')->getData());
             return $this->redirect($request->getUri()); // rediriger vers la route actuelle
         }
 

@@ -21,8 +21,13 @@
         <p class="description">{{ product.fullDescription|nl2br }}</p>
     </div>
 
-    {{ form_start(form) }}
-    {{ form_row(form.addToCart) }}
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-    {{ form_end(form) }}
+    {% if app.user %}
+        {{ form_start(form) }}
+        <div class="quantity-field">{{ form_label(form.quantity) }} {{ form_widget(form.quantity) }}</div>
+        {{ form_row(form.addToCart) }}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        {{ form_end(form) }}
+    {% else %}
+        <a href="{{ path('user_login') }}" class="submit-button">Connexion</a>
+    {% endif %}
 {% endblock %}

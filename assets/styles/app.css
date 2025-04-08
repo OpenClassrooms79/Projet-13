@@ -218,6 +218,13 @@ H3 {
     margin-bottom: 30px;
 }
 
+a.submit-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
 .two-hblocks {
     display: flex;
     flex-direction: row;

@@ -50,3 +50,11 @@
 #product FORM BUTTON[type="submit"] {
     width: 465px;
 }
+
+.quantity-field {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 15px;
+}
