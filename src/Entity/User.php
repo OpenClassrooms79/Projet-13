@@ -53,6 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var Collection<int, Order>
      */
     #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'user', orphanRemoval: true)]
+    #[ORM\OrderBy(['orderDate' => 'ASC'])]
     private Collection $orders;
 
     public function __construct()

@@ -24,7 +24,7 @@ class Order
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, unique: true)]
+    #[ORM\Column(length: 10, unique: true)]
     private ?string $num = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
