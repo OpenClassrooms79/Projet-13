@@ -12,28 +12,32 @@
     <section id="account-sections">
         <section id="orders">
             <h3>Mes commandes</h3>
-            <table>
-                <thead>
-                <tr>
-                    <th>N°</th>
-                    <th></th>
-                    <th>Date</th>
-                    <th></th>
-                    <th>Prix</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for order in orders %}
+            {% if orders is empty %}
+                <div class="empty">Vous n'avez aucune commande.</div>
+            {% else %}
+                <table>
+                    <thead>
                     <tr>
-                        <td>{{ order.num }}</td>
-                        <td></td>
-                        <td>{{ order.orderDate|format_date(locale: 'fr', pattern: 'dd/MM/yyyy') }}</td>
-                        <td></td>
-                        <td>{{ order.total }}€</td>
+                        <th>N°</th>
+                        <th></th>
+                        <th>Date</th>
+                        <th></th>
+                        <th>Prix</th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {% for order in orders %}
+                        <tr>
+                            <td>{{ order.num }}</td>
+                            <td></td>
+                            <td>{{ order.orderDate|format_date(locale: 'fr', pattern: 'dd/MM/yyyy') }}</td>
+                            <td></td>
+                            <td>{{ order.total }}€</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
         </section>
 
         <section id="api-access">
