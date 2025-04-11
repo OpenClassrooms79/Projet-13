@@ -7,6 +7,7 @@
         {% block importmap %}{{ importmap('app') }}{% endblock %}
     {% endblock %}
     {% block stylesheets %}{% endblock %}
+    <script src="{{ asset('scripts/scripts.js') }}"></script>
 </head>
 <body {% block body_class %}{% endblock %}>
 <div id="wrapper">

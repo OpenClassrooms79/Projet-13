@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 final class UserController extends AbstractController
@@ -99,7 +100,7 @@ final class UserController extends AbstractController
     }
 
     #[Route(path: '/compte', name: 'user_account')]
-    public function account(Request $request, Security $security): Response
+    public function account(Request $request, Security $security, TokenStorageInterface $tokenStorage): Response
     {
         if (!$this->security->isGranted('IS_AUTHENTICATED_FULLY')) {
             return $this->redirectToRoute('user_login');
@@ -125,12 +126,14 @@ final class UserController extends AbstractController
         // suppression du compte
         $deleteForm->handleRequest($request);
         if ($deleteForm->isSubmitted() && $deleteForm->isValid()) {
+            // déconnexion immédiate
+            $tokenStorage->setToken(null);
+
             $this->entityManager->remove($user);
             $this->entityManager->flush();
 
-            // suppresion de la session
-            $this->security->logout();
-            return $this->redirectToRoute('app_main'); // rediriger vers la page d'accueil
+            // redirige vers la route de logout qui va déconnecter l'utilisateur
+            return $this->redirectToRoute('user_logout');
         }
 
         return $this->render('user/account.html.twig', [

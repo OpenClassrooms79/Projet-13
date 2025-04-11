@@ -9,6 +9,13 @@
 {% block body_class %}class="private account"{% endblock %}
 
 {% block body_content %}
+    <script>
+        setupConfirmation(
+            '#delete_account_form',
+            '#{{ deleteForm.deleteAccount.vars.id }}',
+            'Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.'
+        );
+    </script>
     <section id="account-sections">
         <section id="orders">
             <h3>Mes commandes</h3>
@@ -44,14 +51,12 @@
             <h3>Mon accès API</h3>
             {{ form_start(apiForm) }}
             {{ form_row(apiForm.apiAccess) }}
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             {{ form_end(apiForm) }}
         </section>
 
         <section id="delete-account">
             {{ form_start(deleteForm) }}
             {{ form_row(deleteForm.deleteAccount) }}
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             {{ form_end(deleteForm) }}
         </section>
     </section>

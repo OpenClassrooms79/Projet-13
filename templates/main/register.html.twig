@@ -33,7 +33,6 @@
             </div>
         </div>
         {{ form_row(form.registerSubmit) }}
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         {{ form_end(form) }}
 
         <a href="{{ path('user_login') }}" class="no-account-or-already-registered">Déjà un compte ? Se connecter</a>

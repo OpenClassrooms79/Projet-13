@@ -10,19 +10,11 @@
 
 {% block body_content %}
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById('{{ confirm_order_form.confirmOrder.vars.id }}').addEventListener('click', function (event) {
-                event.preventDefault(); // empêche l'envoi immédiat du formulaire
-                const confirmation = confirm('Êtes-vous sûr de vouloir valider la commande ?');
-
-                if (confirmation) {
-                    // si l'utilisateur confirme, on soumet le formulaire
-                    document.getElementById('confirm_order_form').submit();
-                } else {
-                    console.log('Commande annulée');
-                }
-            });
-        });
+        setupConfirmation(
+            '#confirm_order_form',
+            '#{{ confirm_order_form.confirmOrder.vars.id }}',
+            'Êtes-vous sûr de vouloir valider la commande ?'
+        );
     </script>
     <div id="cart">
         {% if cartData is empty %}
@@ -31,7 +23,6 @@
             <div id="buttons">
                 {{ form_start(empty_cart_form) }}
                 {{ form_row(empty_cart_form.emptyCart) }}
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                 {{ form_end(empty_cart_form) }}
             </div>
 
@@ -69,7 +60,6 @@
 
             {{ form_start(confirm_order_form) }}
             {{ form_row(confirm_order_form.confirmOrder) }}
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             {{ form_end(confirm_order_form) }}
         {% endif %}
     </div>
