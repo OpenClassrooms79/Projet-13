@@ -16,6 +16,7 @@ class ConfirmOrderType extends AbstractType
                 'label' => 'Valider la commande',
                 'attr' => [
                     'class' => 'submit-button',
+                    'id' => 'confirm-order-button',
                 ],
             ]);
     }
@@ -23,7 +24,7 @@ class ConfirmOrderType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'attr' => ['id' => 'confirm_order_form'],  // id pour la balise <form>
         ]);
     }
 }

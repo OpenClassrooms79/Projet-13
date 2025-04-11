@@ -9,6 +9,21 @@
 {% block body_class %}class="private cart"{% endblock %}
 
 {% block body_content %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('{{ confirm_order_form.confirmOrder.vars.id }}').addEventListener('click', function (event) {
+                event.preventDefault(); // empêche l'envoi immédiat du formulaire
+                const confirmation = confirm('Êtes-vous sûr de vouloir valider la commande ?');
+
+                if (confirmation) {
+                    // si l'utilisateur confirme, on soumet le formulaire
+                    document.getElementById('confirm_order_form').submit();
+                } else {
+                    console.log('Commande annulée');
+                }
+            });
+        });
+    </script>
     <div id="cart">
         {% if cartData is empty %}
             <div class="empty">Votre panier est vide.</div>
