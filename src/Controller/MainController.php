@@ -31,7 +31,7 @@ final class MainController extends AbstractController
     {
         $product = $this->productRepository->find($id);
         if ($product === null) {
-            return $this->forward('App\Controller\ErrorController::index', [
+            return $this->forward('App\Controller\ErrorController::productNotFound', [
                 'title' => self::ERROR_TITLE,
                 'message' => self::ERROR_SHOW,
                 'id' => $id,
